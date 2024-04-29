@@ -5,13 +5,13 @@
     "description": "nature, shape, number of items, ownership and other properties (except data itself) of a dataset involved in a computing task",
     "type": "object",
     "properties": {
-      "$$key": {
-        "enum": [ "tabular", "audio", "image", "video", "object", "$other" ],
-        "description": "the nature of the data, purposedly limited to basic types"
+      "data_type": {
+        "type": "string",
+        "description": "the nature of the data, example : tabular, audio, image, video, object"
       },
       "fileType": {
-        "enum": [ "3gp", "3gpp", "3gpp2", "8svx", "aa", "aac", "aax", "act", "afdesign", "afphoto", "ai", "aiff", "alac", "amr", "amv", "ape", "asf", "au", "avi", "avif", "awb", "bmp", "bpg", "cd5", "cda", "cdr", "cgm", "clip", "cpt", "csv", "deep", "dirac", "divx", "drawingml", "drw", "dss", "dvf", "ecw", "eps", "fits", "flac", "flif", "flv", "flvf4v", "gem", "gerber", "gif", "gle", "gsm", "heif", "hp-gl", "html", "hvif", "ico", "iklax", "ilbm", "img", "ivs", "jpeg", "json", "kra", "lottie", "m4a", "m4b", "m4p", "m4v", "mathml", "matroska", "mdp", "mmf", "movpkg", "mp3", "mpc", "mpeg1", "mpeg2", "mpeg4", "msv", "mxf", "naplps", "netpbm", "nmf", "nrrd", "nsv", "odg", "ods", "ogg", "opus", "pam", "pbm", "pcx", "pdf", "pdn", "pgf", "pgm", "pgml", "pict", "plbm", "png", "pnm", "postscript", "ppm", "psd", "psp", "pstricks", "qcc", "quicktime", "ra", "raw", "realmedia", "regis", "rf64", "roq", "sai", "sgi", "sid", "sln", "svg", "svi", "swf", "text", "tga", "tiff", "tinyvg", "tta", "vicar", "vivoactive", "vml", "vob", "voc", "vox", "wav", "webm", "webp", "wma", "wmf", "wmv", "wv", "xaml", "xar", "xcf", "xisf", "xls", "xlsx", "xml", "xps", "yaml", "$other", null ],
-        "description": "the file type of the dataset"
+        "type": "string",
+        "description": "the file type of the dataset, example: ai, avi, csv, svg... "
       },
       "volume": {
         "type": "integer",
@@ -19,12 +19,11 @@
       },
       "volumeUnit": {
         "type": "string",
-        "enum": [ "kilobyte", "megabyte", "gigabyte", "terabyte", "petabyte", "exabyte", "zettabyte", "yottabyte" ],
-        "description": "the unit of the size of the dataset"
+        "description": "the unit of the size of the dataset, example: kilobyte, megabyte..."
       },
       "source": {
-        "enum": [ "public", "private", "$other", null ],
-        "description": "the kind of source of the dataset"
+        "type": "string",
+        "description": "the kind of source of the dataset, example: public, private..."
       },
       "sourceUri": {
         "type": "string",
@@ -49,7 +48,7 @@
       }
     },
     "required": [
-      "$$key",
+      "data_type",
       "volume",
       "volumeUnit"
     ]
