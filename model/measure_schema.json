@@ -7,7 +7,7 @@
     "properties": {
       "measurement_tool": {
         "type": "string",
-        "description": "the method used to perform the energy or FLOPS measure"
+        "description": "the method used to perform the energy or FLOPS measure, example: CodeCarbon, CarbonAI, flops-compute, Wattmeter..."
       },
       "manufacturer": {
         "type": "string",
