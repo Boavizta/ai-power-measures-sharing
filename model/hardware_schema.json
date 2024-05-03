@@ -30,6 +30,11 @@
         "minimum": 0,
         "maximum": 1,
         "description": "the percentage of use of this component"
+      },
+      "quality": {
+        "type": "string",
+        "enum":["high","medium","low"],
+        "description": "the quality of the information you provided, 3 possibilities : high (percentage error +/-1%), medium (percentage error +/-10%), low (percentage error +/-20%)"
       }
     },
     "required": [

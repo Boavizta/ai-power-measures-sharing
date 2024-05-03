@@ -181,19 +181,16 @@
       "infrastructure": {
         "type": "object",
         "description": "the infrastructure on which is performed the computing task",
-        
-          
-          "parts": {
-            "type": "array",
-            "items": {
-              "type":"object",
-              "minItems": 1,
-              "additionalProperties": {
-                "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/hardware_schema.json"
-              }
+        "parts": {
+          "type": "array",
+          "items": {
+            "type":"object",
+            "minItems": 1,
+            "additionalProperties": {
+              "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/hardware_schema.json"
             }
-          },
-        
+          }
+        },
         "required": [
           "parts"
         ]
