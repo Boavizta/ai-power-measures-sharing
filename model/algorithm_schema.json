@@ -5,7 +5,7 @@
     "description": "the type of algorithm used by the computing task",
     "type": "object",
     "properties": {
-      "$$key": {
+      "algorithm_name": {
         "type": "string",
         "description": "the case-sensitive common name of the algorithm"
       },
@@ -24,17 +24,13 @@
       "hyperparameters": {
         "type": "object"
       },
-      "trainPercent": {
-        "type": "number"
-      },
-      "validationPercent": {
-        "type": "number"
-      },
-      "testPercent": {
-        "type": "number"
+      "quality": {
+        "type": "string",
+        "enum":["high","medium","low"],
+        "description": "the quality of the information you provided, 3 possibilities : high (percentage error +/-1%), medium (percentage error +/-10%), low (percentage error +/-20%)"
       }
     },
     "required": [
-      "$$key"
+      "algorithm_name"
     ]
   }

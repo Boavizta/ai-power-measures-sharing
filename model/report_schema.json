@@ -85,33 +85,44 @@
       "measures": {
         "type": "array",
         "description": "the software and/or hardware measures of the computing task",
-        "items": {
-          "type":"object",
-          "minItems": 1,
-          "additionalProperties": {
-            "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/measure_schema.json"
+        "properties": {
+          "runtimeSeconds": {
+            "type": "number",
+            "description": "the runtime of the computing task (in seconds)"
+          },
+          "measuredAccuracy": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "the measured accuracy of your model (between 0 and 1)"
+          },
+          "estimatedAccuracy": {
+            "type": "string",
+            "description": "if you didn't measure the accuracy of your model in concrete percentages, you can give an assessment of the precision between: VERY POOR, POOR, AVERAGE, GOOD, VERY GOOD"
+          },
+          "powerConsumptionMeasures": {
+            "type":"object",
+            "minItems": 1,
+            "additionalProperties": {
+              "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/measure_schema.json"
+            }
           }
-        }
+        },
+        "required": [
+          "powerConsumptionMeasures"  
+              ]
       },
       "task": {
         "type": "object",
         "description": "the nature of the task being measured",
         "properties": {
-          "domain": {
-            "enum": [ "machine-learning", "deep-learning", "general-software", "gaming", "$other", null ],
-            "description": "the high-level domain in the context of which the computing task takes place"
-          },
-          "altDomain": {
+          "taskType": {
             "type": "string",
-            "description": "alternative domain in case where the domain is $other"
+            "description": "type of the computing task of machine learning, example : preprocessing, supervised, unsupervised, unsupervised, postprocessing, semisupervised,postprocessing ..."
           },
-          "type": {
-            "enum": [ "preprocessing", "supervised", "unsupervised", "semisupervised", "reinforcement", "finetuning", "inference", "postprocessing", "$other", null ],
-            "description": "type of the computing task"
-          },
-          "altType": {
+          "taskStage": {
             "type": "string",
-            "description": "alternative type in case where the type is $other"
+            "description": "stage of the task if any, example: training, finetuning, reinforcement, inference..."
           },
           "algorithms": {
             "type": "array",
@@ -125,7 +136,7 @@
           }
         },
         "required": [
-          "type",
+          "taskType",
           "algorithms"
         ]
       },
@@ -134,13 +145,16 @@
         "description": "system information of the infrastructure on which is run the computing task",
         "properties": {
           "os": {
-            "type": "string"
+            "type": "string",
+            "description":"name of the operating system"
           },
-          "distro": {
-            "type": "string"
+          "distribution": {
+            "type": "string",
+            "description":"distribution of the operating system"
           },
           "distroVersion": {
-            "type": "string"
+            "type": "string",
+            "description":"distribution's version of the operating system"
           }
         },
         "required": [
@@ -153,10 +167,11 @@
         "properties": {
           "language": {
             "type": "string",
-            "enum": [ "C#", "C++", "Dart", "Go", "Java", "JavaScript", "Julia", "Kotlin", "Python", "R", "Ruby", "Rust", "Swift", "TypeScript", "$other" ]
+            "description": "name of the programming language used, example : C, Java, Julia, Pyhton..."
           },
           "version": {
-            "type": "string"
+            "type": "string",
+            "description": "version of the programming language used"
           }
         },
         "required": [
@@ -166,19 +181,13 @@
       "infrastructure": {
         "type": "object",
         "description": "the infrastructure on which is performed the computing task",
-        "properties": {
-          "shared": {
-            "type": "boolean",
-            "description": "infrastructure dedicated to the task or shared with others"
-          },
-          "parts": {
-            "type": "array",
-            "items": {
-              "type":"object",
-              "minItems": 1,
-              "additionalProperties": {
-                "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/hardware_schema.json"
-              }
+        "parts": {
+          "type": "array",
+          "items": {
+            "type":"object",
+            "minItems": 1,
+            "additionalProperties": {
+              "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/hardware_schema.json"
             }
           }
         },

@@ -5,9 +5,9 @@
     "description": "the energy measure obtained from software and/or hardware tools, for a computing task",
     "type": "object",
     "properties": {
-      "$$key": {
-        "enum": [ "CodeCarbon", "CarbonAI", "pyJoules", "pynvml", "pyRAPL", "PowerGadget", "redutils", "JEPO", "JoularJX", "Win32_PowerMeter", "flops-compute", "flops-counter", "flopco-pytorch", "ptflops", "flops.r", "$Wattmeter", "$other" ],
-        "description": "the method used to perform the energy or FLOPS measure"
+      "measurement_tool": {
+        "type": "string",
+        "description": "the method used to perform the energy or FLOPS measure, example: CodeCarbon, CarbonAI, flops-compute, Wattmeter..."
       },
       "manufacturer": {
         "type": "string",
@@ -17,19 +17,44 @@
         "type": "string",
         "description": "the version of the measuring tool, if any"
       },
+      "cpu_tracking_mode": {
+        "type": "string",
+        "description": "the method used to track the consumption of the CPU, example : constant, RAPL..."
+      },
+      "gpu_tracking_mode": {
+        "type": "string",
+        "description": "the method used to track the consumption of the GPU, example : constant, nvml..."
+      },
+      "server_side_inference":{
+        "unit": "string",
+        "enum": ["AI_server","testingAI_server","both"],
+        "description": "if you practice inference throw an API, do you estimate the consumption only of the AI server (because the AI is deployed on your own server and you have access to the measure or because you estimated it with a tool like EcoLogits), only of the testingAI_server side or from both side ?"
+      },
       "unit": {
         "type": "string",
-        "enum": [ "Wh", "kWh", "MWh", "GWh", "kJoule", "MJoule", "GJoule", "TJoule", "PJoule", "BTU", "kiloFLOPS", "megaFLOPS", "gigaFLOPS", "teraFLOPS", "petaFLOPS", "exaFLOPS", "zettaFLOPS", "yottaFLOPS" ],
-        "description": "the unit of the power consumption measure of the computing task"
+        "description": "the unit of the power consumption measure of the computing task, example: Wh, kWh, Joule, FLOPS..."
       },
-      "value": {
+      "powerCalibrationMeasure": {
+        "type": "number",
+        "description": "the power consumed during your calibration measure if any (to isolate the inital consumption of your machine)"
+      },
+      "durationSecondsCalibrationMeasure": {
+        "type": "number",
+        "description": "the duration of your calibration if any (in seconds)"
+      },
+      "powerConsumption": {
         "type": "number",
         "description": "the power consumption measure of the computing task"
+      },
+      "quality": {
+        "type": "string",
+        "enum":["high","medium","low"],
+        "description": "the quality of the information you provided, 3 possibilities : high (percentage error +/-1%), medium (percentage error +/-10%), low (percentage error +/-20%)"
       }
     },
     "required": [
-      "$$key",
+      "measurement_tool",
       "unit",
-      "value"
+      "powerConsumption"
     ]
 }
