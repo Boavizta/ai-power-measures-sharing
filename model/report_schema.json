@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$id": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/report_schema.json",
+    "$id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/report_schema.json",
     "title": "report",
     "description": "the main object containing all the context pertaining to a computing task",
     "type": "object",
@@ -30,7 +30,8 @@
             "description": "the publishing date of this report in format YYYY-MM-DD HH:MM:SS"
           },
           "reportStatus": {
-            "enum": [ "draft", "final", "corrective", "$other", null ],
+            "type": "string",
+            "enum": [ "draft", "final", "corrective", "$other" ],
             "description": ""
           },
           "publisher": {
@@ -78,7 +79,7 @@
           "type":"object",
           "minItems": 1,
           "additionalProperties": {
-            "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/report_schema.json"
+            "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/report_schema.json"
           }
         }
       },
@@ -104,7 +105,7 @@
             "type":"object",
             "minItems": 1,
             "additionalProperties": {
-              "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/measure_schema.json"
+              "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/measure_schema.json"
             }
           }
         },
@@ -130,7 +131,7 @@
             "items": {
               "type":"object",
               "additionalProperties": {
-                "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/algorithm_schema.json"
+                "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/algorithm_schema.json"
               }
             }
           }
@@ -187,7 +188,7 @@
             "type":"object",
             "minItems": 1,
             "additionalProperties": {
-              "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/hardware_schema.json"
+              "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/hardware_schema.json"
             }
           }
         },

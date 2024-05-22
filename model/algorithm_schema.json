@@ -1,11 +1,11 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$id": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/algorithm_schema.json",
+    "$id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/algorithm_schema.json",
     "title": "algorithm",
     "description": "the type of algorithm used by the computing task",
     "type": "object",
     "properties": {
-      "algorithm_name": {
+      "$$key": {
         "type": "string",
         "description": "the case-sensitive common name of the algorithm"
       },
@@ -26,11 +26,11 @@
       },
       "quality": {
         "type": "string",
-        "enum":["high","medium","low"],
+        "enum":[ "high", "medium", "low" ],
         "description": "the quality of the information you provided, 3 possibilities : high (percentage error +/-1%), medium (percentage error +/-10%), low (percentage error +/-20%)"
       }
     },
     "required": [
-      "algorithm_name"
+      "$$key"
     ]
   }

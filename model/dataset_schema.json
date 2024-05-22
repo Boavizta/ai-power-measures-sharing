@@ -1,17 +1,19 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$id": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/dataset_schema.json",
+    "$id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/dataset_schema.json",
     "title": "dataset",
     "description": "nature, shape, number of items, ownership and other properties (except data itself) of a dataset involved in a computing task",
     "type": "object",
     "properties": {
-      "data_type": {
+      "$$key": {
         "type": "string",
-        "description": "the nature of the data, example : tabular, audio, image, video, object"
+        "enum": [ "tabular", "audio", "image", "video", "object", "$other" ],
+        "description": "the nature of the data, purposedly limited to basic types"
       },
       "fileType": {
         "type": "string",
-        "description": "the file type of the dataset, example: ai, avi, csv, svg... "
+        "enum": [ "3gp", "3gpp", "3gpp2", "8svx", "aa", "aac", "aax", "act", "afdesign", "afphoto", "ai", "aiff", "alac", "amr", "amv", "ape", "asf", "au", "avi", "avif", "awb", "bmp", "bpg", "cd5", "cda", "cdr", "cgm", "clip", "cpt", "csv", "deep", "dirac", "divx", "drawingml", "drw", "dss", "dvf", "ecw", "eps", "fits", "flac", "flif", "flv", "flvf4v", "gem", "gerber", "gif", "gle", "gsm", "heif", "hp-gl", "html", "hvif", "ico", "iklax", "ilbm", "img", "ivs", "jpeg", "json", "kra", "lottie", "m4a", "m4b", "m4p", "m4v", "mathml", "matroska", "mdp", "mmf", "movpkg", "mp3", "mpc", "mpeg1", "mpeg2", "mpeg4", "msv", "mxf", "naplps", "netpbm", "nmf", "nrrd", "nsv", "odg", "ods", "ogg", "opus", "pam", "pbm", "pcx", "pdf", "pdn", "pgf", "pgm", "pgml", "pict", "plbm", "png", "pnm", "postscript", "ppm", "psd", "psp", "pstricks", "qcc", "quicktime", "ra", "raw", "realmedia", "regis", "rf64", "roq", "sai", "sgi", "sid", "sln", "svg", "svi", "swf", "text", "tga", "tiff", "tinyvg", "tta", "vicar", "vivoactive", "vml", "vob", "voc", "vox", "wav", "webm", "webp", "wma", "wmf", "wmv", "wv", "xaml", "xar", "xcf", "xisf", "xls", "xlsx", "xml", "xps", "yaml", "$other", null ],
+        "description": "the file type of the dataset"
       },
       "volume": {
         "type": "integer",
@@ -19,11 +21,13 @@
       },
       "volumeUnit": {
         "type": "string",
-        "description": "the unit of the size of the dataset, example: kilobyte, megabyte..."
+        "enum": [ "kilobyte", "megabyte", "gigabyte", "terabyte", "petabyte", "exabyte", "zettabyte", "yottabyte" ],
+        "description": "the unit of the size of the dataset"
       },
       "source": {
         "type": "string",
-        "description": "the kind of source of the dataset, example: public, private..."
+        "enum": [ "public", "private", "$other" ],
+        "description": "the kind of source of the dataset"
       },
       "sourceUri": {
         "type": "string",
@@ -48,12 +52,12 @@
       },
       "quality": {
         "type": "string",
-        "enum":["high","medium","low"],
+        "enum":[ "high", "medium", "low" ],
         "description": "the quality of the information you provided, 3 possibilities : high (percentage error +/-1%), medium (percentage error +/-10%), low (percentage error +/-20%)"
       }
     },
     "required": [
-      "data_type",
+      "$$key",
       "volume",
       "volumeUnit"
     ]

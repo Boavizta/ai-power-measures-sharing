@@ -1,12 +1,12 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$id": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/measure_schema.json",
+    "$id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/measure_schema.json",
     "title": "measure",
     "description": "the energy measure obtained from software and/or hardware tools, for a computing task",
     "type": "object",
     "properties": {
-      "measurement_tool": {
-        "type": "string",
+      "$$key": {
+        "enum": [ "CodeCarbon", "CarbonAI", "pyJoules", "pynvml", "pyRAPL", "PowerGadget", "redutils", "JEPO", "JoularJX", "Win32_PowerMeter", "flops-compute", "flops-counter", "flopco-pytorch", "ptflops", "flops.r", "$Wattmeter", "$other" ],
         "description": "the method used to perform the energy or FLOPS measure, example: CodeCarbon, CarbonAI, flops-compute, Wattmeter..."
       },
       "manufacturer": {
@@ -27,11 +27,12 @@
       },
       "server_side_inference":{
         "unit": "string",
-        "enum": ["AI_server","testingAI_server","both"],
+        "enum": [ "AI_server", "testingAI_server", "both" ],
         "description": "if you practice inference throw an API, do you estimate the consumption only of the AI server (because the AI is deployed on your own server and you have access to the measure or because you estimated it with a tool like EcoLogits), only of the testingAI_server side or from both side ?"
       },
       "unit": {
         "type": "string",
+        "enum": [ "Wh", "kWh", "MWh", "GWh", "kJoule", "MJoule", "GJoule", "TJoule", "PJoule", "BTU", "kiloFLOPS", "megaFLOPS", "gigaFLOPS", "teraFLOPS", "petaFLOPS", "exaFLOPS", "zettaFLOPS", "yottaFLOPS" ],
         "description": "the unit of the power consumption measure of the computing task, example: Wh, kWh, Joule, FLOPS..."
       },
       "powerCalibrationMeasure": {
@@ -48,12 +49,12 @@
       },
       "quality": {
         "type": "string",
-        "enum":["high","medium","low"],
+        "enum":[ "high", "medium", "low" ],
         "description": "the quality of the information you provided, 3 possibilities : high (percentage error +/-1%), medium (percentage error +/-10%), low (percentage error +/-20%)"
       }
     },
     "required": [
-      "measurement_tool",
+      "$$key",
       "unit",
       "powerConsumption"
     ]
