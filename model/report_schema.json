@@ -79,39 +79,23 @@
           "type":"object",
           "minItems": 1,
           "additionalProperties": {
-            "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/report_schema.json"
+            "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/dataset_schema.json"
           }
         }
       },
       "measures": {
         "type": "array",
         "description": "the software and/or hardware measures of the computing task",
-        "properties": {
-          "runtimeSeconds": {
-            "type": "number",
-            "description": "the runtime of the computing task (in seconds)"
-          },
-          "measuredAccuracy": {
-            "type": "number",
-            "minimum": 0,
-            "maximum": 1,
-            "description": "the measured accuracy of your model (between 0 and 1)"
-          },
-          "estimatedAccuracy": {
-            "type": "string",
-            "description": "if you didn't measure the accuracy of your model in concrete percentages, you can give an assessment of the precision between: VERY POOR, POOR, AVERAGE, GOOD, VERY GOOD"
-          },
-          "powerConsumptionMeasures": {
-            "type":"object",
-            "minItems": 1,
-            "additionalProperties": {
-              "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/measure_schema.json"
-            }
+        "items": {
+          "type":"object",
+          "minItems": 1,
+          "additionalProperties": {
+            "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/measure_schema.json"
           }
         },
         "required": [
-          "powerConsumptionMeasures"  
-              ]
+          "measures"  
+        ]
       },
       "task": {
         "type": "object",
@@ -134,6 +118,17 @@
                 "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/algorithm_schema.json"
               }
             }
+          },
+          "measuredAccuracy": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "the measured accuracy of your model (between 0 and 1)"
+          },
+          "estimatedAccuracy": {
+            "type": "string",
+            "enum": [ "VERY POOR", "POOR", "AVERAGE", "GOOD", "VERY GOOD" ],
+            "description": "if you didn't measure the accuracy of your model in concrete percentages, you can give an assessment of the precision between: VERY POOR, POOR, AVERAGE, GOOD, VERY GOOD"
           }
         },
         "required": [
