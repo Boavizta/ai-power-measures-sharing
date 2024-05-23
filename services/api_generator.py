@@ -31,9 +31,6 @@ class ClassDescription:
     description:str = None
     properties: dict[str, PropertyDescription] = {}
 
-    def set_ready(self):
-        self.__status = 'ready'
-
     def set_ambiguous(self):
         self.__status = 'ambiguous'
 
@@ -47,7 +44,30 @@ class ApiGenerator:
 
     __input_uri:str = None
 
-    __schemas_processed:list[str] = [] # list avoiding infinite loop on files previously processed
+    """The keys are JSON filenames and the values are class names. Necessary when processing references.
+    """
+    __root_classnames:dict[str, str] = {}
+
+    def __handle_array(self, items:dict, parent_property:PropertyDescription):
+        attributes = items.keys()
+        if 'type' not in attributes:
+            raise Exception('Missing "type" attribute in the array items definition for {}'.format(parent_property.name))
+        if items['type'] in [ 'string', 'number', 'integer', 'boolean', 'null' ]:
+            # the items are a literal type, processing ends normally
+            parent_property.items = items['type']
+            return        
+        elif items['type'] == 'object':
+            # 2 sub-cases, either anonymous nested object or existing
+            if 'additionalProperties' in attributes:
+                reference = items['additionalProperties']
+                if type(reference) != dict or '$ref' not in reference.keys():
+                    raise Exception('Missing "$ref" attribute in additional properties of the array items definition for {}'.format(parent_property.name))
+                referenced_schema = str(reference['$ref']).split('/')[-1]
+                if referenced_schema not in self.__root_classnames.keys():
+                    raise Exception('Unknown schema {} referenced by the array items definition for {}'.format(referenced_schema, parent_property.name))
+                # TODO
+        else:
+            raise Exception('Type not handled for items of array property {}'.format(parent_property.name))
 
     def __handle_property(self, definition:dict, name:str, parent_object:ClassDescription):
         """Process the dictionary describing a property.
@@ -66,7 +86,9 @@ class ApiGenerator:
             # the property is a literal type, processing ends normally
             return
         elif pd.type == 'array':
-            pass
+            if 'items' not in attributes:
+                raise Exception('Missing "items" attribute in the definition for array {}.{}'.format(parent_object.name, name))
+            self.__handle_array(items=definition['items'], parent_property=pd)
         elif pd.type == 'object':
             pass
         else:
@@ -89,26 +111,33 @@ class ApiGenerator:
             print('Ambiguous class name found '+cd.name)
             self.__classes[cd.name].set_ambiguous()
             return
-        cd.set_ready()
 
         for p in properties.keys():
             self.__handle_property(definition=properties[p], name=p, parent_object=cd)
 
         self.__classes[cd.name] = cd
 
-
     def __handle_schema(self, schema:dict):
         """Process a full schema dictionary.
         """
         root_keys = schema.keys()
-        if not set([ '$schema', '$id', 'title', 'properties', 'required' ]).issubset(set(root_keys)):
-            raise Exception('Missing mandatory properties, aborted')
-        if schema['type'] != 'object':
-            raise Exception('Currently, only root entities of type "object" are supported')
         # handle root class
         description = schema['description'] if 'description' in root_keys else None
         self.__handle_object(properties=schema['properties'], name=str(schema['title']).capitalize(), name_prefix=None, description=description)
-            
+
+    def __handle_root_classname(self, filename:str):
+        """Bootstrap class names and associate to containing file.
+        """
+        with open(os.sep.join([ self.__input_uri, filename ]), mode='r', encoding='utf-8') as fp:
+            schema = json.load(fp)
+            if type(schema) != dict:
+                raise Exception('Unexpected JSON content type')
+            root_keys = schema.keys()
+            if not set([ '$schema', '$id', 'title', 'properties', 'required' ]).issubset(set(root_keys)):
+                raise Exception('Missing mandatory properties, aborted')
+            if schema['type'] != 'object':
+                raise Exception('Currently, only root entities of type "object" are supported')
+            self.__root_classnames[filename] = str(schema['title']).capitalize()
 
     def __init__(self, input_uri:str) -> None:
         """The constructor should be able to deal with a local folder or with an URL. Currently, only local folder is supported.
@@ -125,14 +154,16 @@ class ApiGenerator:
                 self.__input_uri = self.__input_uri[0:len(self.__input_uri-1)]
             if not os.path.isdir(self.__input_uri):
                 raise Exception('The folder does not exist')
-            files = [ f for f in os.listdir(input_uri) if f.endswith('.json')]
+            files = [ f for f in os.listdir(input_uri) if f.endswith('.json') ]
             if files is None or len(files) == 0:
                 raise Exception('No JSON schema found')
+            # pre-loop to initialize all objects with at least their class name, necessary for object references on-the-fly
+            for f in files:
+                self.__handle_root_classname(f)
+            print('Root classes are {}'.format(str(self.__root_classnames)))
+            # main loop processing schemas recursively
             for f in files:
                 with open(os.sep.join([ self.__input_uri, f ]), mode='r', encoding='utf-8') as fp:
                     schema = json.load(fp)
                     print(f)
-                    if type(schema) != dict:
-                        raise Exception('Unexpected JSON content type')
-                    self.__schemas_processed.append(f)
                     self.__handle_schema(schema=schema)

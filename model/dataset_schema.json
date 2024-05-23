@@ -44,15 +44,13 @@
       "shape": {
         "type": "array",
         "description": "the shape of each dataset item (for instance, an array of size 3, for greyscale images)",
-        "items": [
-          {
+        "items": {
             "type": "integer"
-          }
-        ]
+        }
       },
       "quality": {
         "type": "string",
-        "enum":[ "high", "medium", "low" ],
+        "enum": [ "high", "medium", "low" ],
         "description": "the quality of the information you provided, 3 possibilities : high (percentage error +/-1%), medium (percentage error +/-10%), low (percentage error +/-20%)"
       }
     },
