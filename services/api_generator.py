@@ -48,26 +48,34 @@ class ApiGenerator:
     """
     __root_classnames:dict[str, str] = {}
 
-    def __handle_array(self, items:dict, parent_property:PropertyDescription):
+    def __handle_array(self, items:dict, parent_property:PropertyDescription, parent_property_name:str, parent_object:ClassDescription):
         attributes = items.keys()
         if 'type' not in attributes:
-            raise Exception('Missing "type" attribute in the array items definition for {}'.format(parent_property.name))
+            raise Exception('Missing "type" attribute in the array items definition for {}'.format(parent_property_name))
         if items['type'] in [ 'string', 'number', 'integer', 'boolean', 'null' ]:
             # the items are a literal type, processing ends normally
             parent_property.items = items['type']
             return        
         elif items['type'] == 'object':
-            # 2 sub-cases, either anonymous nested object or existing
+            # 2 sub-cases, either anonymous nested object or class defined in schema
             if 'additionalProperties' in attributes:
+                # referenced object
                 reference = items['additionalProperties']
                 if type(reference) != dict or '$ref' not in reference.keys():
-                    raise Exception('Missing "$ref" attribute in additional properties of the array items definition for {}'.format(parent_property.name))
+                    raise Exception('Missing "$ref" attribute in additional properties of the array items definition for {}'.format(parent_property_name))
                 referenced_schema = str(reference['$ref']).split('/')[-1]
                 if referenced_schema not in self.__root_classnames.keys():
-                    raise Exception('Unknown schema {} referenced by the array items definition for {}'.format(referenced_schema, parent_property.name))
+                    raise Exception('Unknown schema {} referenced by the array items definition for {}'.format(referenced_schema, parent_property_name))
+                parent_property.items = ':'.join([ 'object', self.__root_classnames[referenced_schema] ])
+            else:
+                # anonymous nested object
+                if 'properties' not in attributes:
+                    print('Untyped generic object should be avoided')
+                    # TODO
+                print('Anonymous array-wise object: NOT IMPLEMENTED YET for {}.{}'.format(parent_object.name, parent_property_name))
                 # TODO
         else:
-            raise Exception('Type not handled for items of array property {}'.format(parent_property.name))
+            raise Exception('Type not handled for items of array property {}'.format(parent_property_name))
 
     def __handle_property(self, definition:dict, name:str, parent_object:ClassDescription):
         """Process the dictionary describing a property.
@@ -79,18 +87,42 @@ class ApiGenerator:
         # initialize new property
         pd = PropertyDescription()
         pd.type = definition['type']
+
         if 'description' in attributes:
             pd.description = definition['description']
+
         # specific behavior depending on property type: literals, arrays, objects
         if pd.type in [ 'string', 'number', 'integer', 'boolean', 'null' ]:
             # the property is a literal type, processing ends normally
             return
+
         elif pd.type == 'array':
             if 'items' not in attributes:
                 raise Exception('Missing "items" attribute in the definition for array {}.{}'.format(parent_object.name, name))
-            self.__handle_array(items=definition['items'], parent_property=pd)
+            self.__handle_array(items=definition['items'], parent_property=pd, parent_property_name=name, parent_object=parent_object)
+
         elif pd.type == 'object':
-            pass
+
+            # 2 sub-cases, either anonymous nested object or class defined in schema
+            if 'additionalProperties' in attributes:
+                # referenced object
+                reference = definition['additionalProperties']
+                if type(reference) != dict or '$ref' not in reference.keys():
+                    raise Exception('Missing "$ref" attribute in additional properties of the property definition for {}.{}'.format(parent_object.name, name))
+                referenced_schema = str(reference['$ref']).split('/')[-1]
+                if referenced_schema not in self.__root_classnames.keys():
+                    raise Exception('Unknown schema {} referenced by the property definition for {}.{}'.format(referenced_schema, parent_object.name, name))
+                # update property type                
+                pd.type = ':'.join([ 'object', self.__root_classnames[referenced_schema] ])
+            else:
+                # anonymous nested object
+                if 'properties' not in attributes:
+                    print('Untyped generic object should be avoided')
+                    return
+                self.__handle_object(properties=definition['properties'], name=name.replace('$','').capitalize(), name_prefix=parent_object.name, description=definition['description'] if 'description' in attributes else None)
+
+
+
         else:
             # unknown type
             raise Exception('Unknown "type" attribute in the property definition for {}.{}'.format(parent_object.name, name))
@@ -123,7 +155,7 @@ class ApiGenerator:
         root_keys = schema.keys()
         # handle root class
         description = schema['description'] if 'description' in root_keys else None
-        self.__handle_object(properties=schema['properties'], name=str(schema['title']).capitalize(), name_prefix=None, description=description)
+        self.__handle_object(properties=schema['properties'], name=str(schema['title']).replace('$', '').capitalize(), name_prefix=None, description=description)
 
     def __handle_root_classname(self, filename:str):
         """Bootstrap class names and associate to containing file.
@@ -167,3 +199,4 @@ class ApiGenerator:
                     schema = json.load(fp)
                     print(f)
                     self.__handle_schema(schema=schema)
+            print('Final classes parsed are: {}'.format(str(self.__classes)))
