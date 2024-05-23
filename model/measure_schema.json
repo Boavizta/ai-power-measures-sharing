@@ -6,6 +6,7 @@
     "type": "object",
     "properties": {
       "$$key": {
+        "type": "string",
         "enum": [ "CodeCarbon", "CarbonAI", "pyJoules", "pynvml", "pyRAPL", "PowerGadget", "redutils", "JEPO", "JoularJX", "Win32_PowerMeter", "flops-compute", "flops-counter", "flopco-pytorch", "ptflops", "flops.r", "$Wattmeter", "$other" ],
         "description": "the method used to perform the energy or FLOPS measure, example: CodeCarbon, CarbonAI, flops-compute, Wattmeter..."
       },
@@ -26,7 +27,7 @@
         "description": "the method used to track the consumption of the GPU, example : constant, nvml..."
       },
       "server_side_inference":{
-        "unit": "string",
+        "type": "string",
         "enum": [ "AI_server", "testingAI_server", "both" ],
         "description": "if you practice inference throw an API, do you estimate the consumption only of the AI server (because the AI is deployed on your own server and you have access to the measure or because you estimated it with a tool like EcoLogits), only of the testingAI_server side or from both side ?"
       },
