@@ -76,3 +76,19 @@ The differences among possible architecture scenarii are bound to several consid
 - Integrity: To expect large public datasets of energy monitoring figures in-the-field, individual data of corporations / projects / teams must describe things in a unique, non-ambiguous, terminology. For instance, the ‘Random Forest’ algorithm should not be described ‘randomforest’ in one case, ‘Random_Forest’ in another, ‘rf’ in a third one. Homogeneity of descriptors must be enforced.
 - Privacy: Energy monitoring data publishers must be in the conditions to keep the desired level of privacy concerning the data they publish
 - Trust: The data published, especially on a public database, must own the appropriate level of trust
+
+
+## 7. Tests
+
+Run tests as follows:
+```
+python test.py
+```
+
+
+## 8. API generation from JSON schemas
+
+The file api/api.py is generated from the JSON schemas within folder /model. When they come to evolve, please refresh the API with the following command:
+```
+python generate_api.py
+```
