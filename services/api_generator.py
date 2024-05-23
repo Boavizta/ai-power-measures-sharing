@@ -12,38 +12,46 @@ import os
 import json
 
 MUSTACHE_TEMPLATES = {
+    'file_header': """{{header}}
+""",
     'class_header': """
 class {{className}}:
 """,
     'property_description': """
     \"\"\"{{description}}
-    \"\"\"
-""",
+    \"\"\"""",
     'property_declaration': """
     {{propertyName}}:{{propertyType}} = None
 """,
     'function_to_dict_header': """
-    def function to_dict(self):
-        return {
-""",
+    def to_dict(self):
+        return {""",
     'function_to_dict_property': """
-            '{{propertyName}}': self.{{propertyName}}{{separator}}
-""",
+            '{{propertyName}}': self.{{propertyName}}{{separator}}""",
     'function_to_dict_footer': """
-        }
-""",
+        }""",
     'class_footer': """
     # end of class {{className}}
+    
 """
+}
+
+DATA_TYPES_SCHEMA_TO_PYTHON = {
+    'string': 'str', 
+    'number': 'float', 
+    'integer': 'int', 
+    'boolean': 'bool', 
+    'null': 'None'
 }
 
 def format_name(name:str) -> str:
     return name.replace('$', '').capitalize()
 
-def populate_template(template:str, items:dict) -> str:
+def populate_template(template:str, items:dict=None) -> str:
     s:str = template
-    for k in items.keys():
-        s = s.replace('{{'+k+'}}', items[k])
+    if items is not None:
+        for k in items.keys():
+            s = s.replace('{{'+k+'}}', items[k])
     return s
 
 class PropertyDescription:
@@ -89,7 +97,7 @@ class ClassDescription:
         }
     
     def add_buffered_property(self, key:str, value:PropertyDescription):
-        self.__buffer[key] = value
+        self.__buffer[key.replace('$', '').lower()] = value
 
     def flush_buffer(self):
         self.properties = self.properties | self.__buffer
@@ -112,9 +120,9 @@ class ApiGenerator:
         attributes = items.keys()
         if 'type' not in attributes:
             raise Exception('Missing "type" attribute in the array items definition for {}.{}'.format(parent_object.name, parent_property_name))
-        if items['type'] in [ 'string', 'number', 'integer', 'boolean', 'null' ]:
+        if items['type'] in list(DATA_TYPES_SCHEMA_TO_PYTHON.keys()):
             # the items are a literal type, processing ends normally
-            parent_property.items = items['type']
+            parent_property.items = DATA_TYPES_SCHEMA_TO_PYTHON[items['type']] 
             return        
         elif items['type'] == 'object':
             # 2 sub-cases, either anonymous nested object or class defined in schema
@@ -153,9 +161,9 @@ class ApiGenerator:
             pd.description = definition['description']
 
         # specific behavior depending on property type: literals, arrays, objects
-        if pd.type in [ 'string', 'number', 'integer', 'boolean', 'null' ]:
+        if pd.type in list(DATA_TYPES_SCHEMA_TO_PYTHON.keys()):
             # the property is a literal type, processing ends normally
-            pass
+            pd.type = DATA_TYPES_SCHEMA_TO_PYTHON[pd.type]
 
         elif pd.type == 'array':
             pd.type = 'list'
@@ -273,11 +281,23 @@ class ApiGenerator:
             print('Final classes parsed are: {}'.format(json.dumps(dict(zip(self.__classes.keys(), [ cd.to_dict() for cd in self.__classes.values() ])), indent=4)))
 
 
-    def generate(self) -> str:
-        s:str = ''
+    def generate(self, header:str=None) -> str:
+        s:str = '' if header is None else populate_template(MUSTACHE_TEMPLATES['file_header'], { 'header': header })
         for c in self.__classes.keys():
             cd = self.__classes[c]
             s += populate_template(MUSTACHE_TEMPLATES['class_header'], { 'className': c }) 
+
             for p in cd.properties.keys():
+                if cd.properties[p].description is not None:
+                    s += populate_template(MUSTACHE_TEMPLATES['property_description'], { 'description': cd.properties[p].description })
                 s += populate_template(MUSTACHE_TEMPLATES['property_declaration'], { 'propertyName': p, 'propertyType': cd.properties[p].user_friendly_type() })
+
+            s += populate_template(MUSTACHE_TEMPLATES['function_to_dict_header'])
+            l = len(list(cd.properties.keys()))
+            for index, p in enumerate(cd.properties):
+                separator = '' if index == l-1 else ','
+                s += populate_template(MUSTACHE_TEMPLATES['function_to_dict_property'], { 'propertyName': p, 'separator': separator })
+            s += populate_template(MUSTACHE_TEMPLATES['function_to_dict_footer'])
+
+            s += populate_template(MUSTACHE_TEMPLATES['class_footer'], { 'className': c }) 
         return s
