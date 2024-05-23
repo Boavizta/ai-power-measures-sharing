@@ -11,8 +11,40 @@
 import os
 import json
 
+MUSTACHE_TEMPLATES = {
+    'class_header': """
+class {{className}}:
+""",
+    'property_description': """
+    \"\"\"{{description}}
+    \"\"\"
+""",
+    'property_declaration': """
+    {{propertyName}}:{{propertyType}} = None
+""",
+    'function_to_dict_header': """
+    def function to_dict(self):
+        return {
+""",
+    'function_to_dict_property': """
+            '{{propertyName}}': self.{{propertyName}}{{separator}}
+""",
+    'function_to_dict_footer': """
+        }
+""",
+    'class_footer': """
+    # end of class {{className}}
+"""
+}
+
 def format_name(name:str) -> str:
     return name.replace('$', '').capitalize()
+
+def populate_template(template:str, items:dict) -> str:
+    s:str = template
+    for k in items.keys():
+        s = s.replace('{{'+k+'}}', items[k])
+    return s
 
 class PropertyDescription:
     """Description of a property value in the JSON schema."""
@@ -21,7 +53,7 @@ class PropertyDescription:
     description:str = None
 
     def user_friendly_type(self) -> str:
-        return self.type if self.items is None else '{}[{}]'.format(self.type, self.items)
+        return self.type.split(':')[-1] if self.items is None else '{}[{}]'.format(self.type, self.items.split(':')[-1])
 
 
 class ClassDescription:
@@ -126,12 +158,12 @@ class ApiGenerator:
             pass
 
         elif pd.type == 'array':
+            pd.type = 'list'
             if 'items' not in attributes:
                 raise Exception('Missing "items" attribute in the definition for array {}.{}'.format(parent_object.name, name))
             self.__handle_array(items=definition['items'], parent_property=pd, parent_property_name=name, parent_object=parent_object)
 
         elif pd.type == 'object':
-
             # 2 sub-cases, either anonymous nested object or class defined in schema
             if 'additionalProperties' in attributes:
                 # referenced object
@@ -147,7 +179,7 @@ class ApiGenerator:
                 # anonymous nested object
                 if 'properties' not in attributes:
                     print('Untyped generic object should be avoided in the property definition for {}.{}'.format(parent_object.name, name))
-                    pd.type = 'object'
+                    pd.type = 'any'
                 else:
                     self.__handle_object(properties=definition['properties'], name=format_name(name=name), name_prefix=parent_object.name, description=definition['description'] if 'description' in attributes else None)
                     pd.type = ':'.join([ 'object', '_'.join([ parent_object.name, format_name(name=name) ]) ])            
@@ -211,7 +243,7 @@ class ApiGenerator:
         """The constructor should be able to deal with a local folder or with an URL. Currently, only local folder is supported.
         """
         self.__GENERIC_PROPERTY_DESCRIPTION = PropertyDescription()
-        self.__GENERIC_PROPERTY_DESCRIPTION.type = 'object'
+        self.__GENERIC_PROPERTY_DESCRIPTION.type = 'any'
         self.__input_uri = input_uri
         if input_uri is None:
             raise Exception('Empty URI')
@@ -239,3 +271,13 @@ class ApiGenerator:
                     self.__handle_schema(schema=schema)
                     print()
             print('Final classes parsed are: {}'.format(json.dumps(dict(zip(self.__classes.keys(), [ cd.to_dict() for cd in self.__classes.values() ])), indent=4)))
+
+
+    def generate(self) -> str:
+        s:str = ''
+        for c in self.__classes.keys():
+            cd = self.__classes[c]
+            s += populate_template(MUSTACHE_TEMPLATES['class_header'], { 'className': c }) 
+            for p in cd.properties.keys():
+                s += populate_template(MUSTACHE_TEMPLATES['property_declaration'], { 'propertyName': p, 'propertyType': cd.properties[p].user_friendly_type() })
+        return s

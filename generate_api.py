@@ -12,3 +12,4 @@ import os
 from services.api_generator import ApiGenerator
 
 api_gen = ApiGenerator(input_uri=os.sep.join([ '.', 'model' ]))
+print(api_gen.generate())
