@@ -27,7 +27,7 @@ class {{className}}:
     def to_dict(self):
         return {""",
     'function_to_dict_property': """
-            '{{propertyName}}': self.{{propertyName}}{{separator}}""",
+            '{{propertyName}}': {{propertyValue}}{{separator}}""",
     'function_to_dict_footer': """
         }""",
     'class_footer': """
@@ -296,7 +296,17 @@ class ApiGenerator:
             l = len(list(cd.properties.keys()))
             for index, p in enumerate(cd.properties):
                 separator = '' if index == l-1 else ','
-                s += populate_template(MUSTACHE_TEMPLATES['function_to_dict_property'], { 'propertyName': p, 'separator': separator })
+                property_value = None
+                if cd.properties[p].type in list(DATA_TYPES_SCHEMA_TO_PYTHON.values()) + [ 'any' ]: # literal or generic object
+                    property_value = 'self.{}'.format(p)
+                elif len(cd.properties[p].type.split(':')) == 2: # object
+                    property_value = 'self.{}.to_dict()'.format(p)
+                else: # list
+                    if cd.properties[p].items in list(DATA_TYPES_SCHEMA_TO_PYTHON.values()) + [ 'any' ]: # list of literals or generic objects
+                        property_value = 'self.{}'.format(p)
+                    elif len(cd.properties[p].items.split(':')) == 2: # list of objects
+                        property_value = '[ elt.to_dict() for elt in self.{} ]'.format(p)
+                s += populate_template(MUSTACHE_TEMPLATES['function_to_dict_property'], { 'propertyName': p, 'propertyValue': property_value, 'separator': separator })
             s += populate_template(MUSTACHE_TEMPLATES['function_to_dict_footer'])
 
             s += populate_template(MUSTACHE_TEMPLATES['class_footer'], { 'className': c }) 

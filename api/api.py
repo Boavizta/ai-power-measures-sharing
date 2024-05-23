@@ -281,7 +281,7 @@ class Report_Header:
             'reportid': self.reportid,
             'reportdatetime': self.reportdatetime,
             'reportstatus': self.reportstatus,
-            'publisher': self.publisher
+            'publisher': self.publisher.to_dict()
         }
     # end of class Report_Header
     
@@ -312,7 +312,7 @@ class Report_Task:
         return {
             'tasktype': self.tasktype,
             'taskstage': self.taskstage,
-            'algorithms': self.algorithms,
+            'algorithms': [ elt.to_dict() for elt in self.algorithms ],
             'measuredaccuracy': self.measuredaccuracy,
             'estimatedaccuracy': self.estimatedaccuracy
         }
@@ -453,15 +453,15 @@ class Report:
 
     def to_dict(self):
         return {
-            'header': self.header,
-            'datasets': self.datasets,
-            'measures': self.measures,
-            'task': self.task,
-            'system': self.system,
-            'software': self.software,
+            'header': self.header.to_dict(),
+            'datasets': [ elt.to_dict() for elt in self.datasets ],
+            'measures': [ elt.to_dict() for elt in self.measures ],
+            'task': self.task.to_dict(),
+            'system': self.system.to_dict(),
+            'software': self.software.to_dict(),
             'infrastructure': self.infrastructure,
-            'region': self.region,
-            'hash': self.hash
+            'region': self.region.to_dict(),
+            'hash': self.hash.to_dict()
         }
     # end of class Report
     
