@@ -36,6 +36,14 @@ class ClassDescription:
 
     def get_status(self)->str:
         return self.__status
+    
+    def to_dict(self) -> dict:
+        return {
+            'nested': self.nested,
+            'name': self.name,
+            'description': self.description,
+            'properties': dict(zip(self.properties.keys(), [ pd.type for pd in self.properties.values()]))
+        }
 
 
 class ApiGenerator:
@@ -121,8 +129,6 @@ class ApiGenerator:
                     return
                 self.__handle_object(properties=definition['properties'], name=name.replace('$','').capitalize(), name_prefix=parent_object.name, description=definition['description'] if 'description' in attributes else None)
 
-
-
         else:
             # unknown type
             raise Exception('Unknown "type" attribute in the property definition for {}.{}'.format(parent_object.name, name))
@@ -199,4 +205,4 @@ class ApiGenerator:
                     schema = json.load(fp)
                     print(f)
                     self.__handle_schema(schema=schema)
-            print('Final classes parsed are: {}'.format(str(self.__classes)))
+            print('Final classes parsed are: {}'.format(json.dumps(dict(zip(self.__classes.keys(), [ cd.to_dict() for cd in self.__classes.values()])), indent=4)))
