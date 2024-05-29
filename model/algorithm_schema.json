@@ -5,9 +5,9 @@
     "description": "the type of algorithm used by the computing task",
     "type": "object",
     "properties": {
-      "$$key": {
+      "algorithm_name": {
         "type": "string",
-        "description": "the case-sensitive common name of the algorithm"
+        "description": "the case-sensitive common name of the algorithm, example: RandomForest, SVM, XGBoost..."
       },
       "framework": {
         "type": "string",
@@ -24,13 +24,17 @@
       "hyperparameters": {
         "type": "object"
       },
-      "quality": {
-        "type": "string",
-        "enum":[ "high", "medium", "low" ],
-        "description": "the quality of the information you provided, 3 possibilities : high (percentage error +/-1%), medium (percentage error +/-10%), low (percentage error +/-20%)"
+      "parameters_LLM":{
+        "type": "object",
+        "properties": {
+          "quantizification_method":{
+            "type": "string",
+            "description": "the full class path of the algorithm within the framework, with elements separated by dots"
+          }
+        }
       }
     },
     "required": [
-      "$$key"
+      "algorithm_name"
     ]
   }

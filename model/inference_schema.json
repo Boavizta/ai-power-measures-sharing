@@ -1,0 +1,45 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/algorithm_schema.json",
+    "title": "query",
+    "description": "the type of query send to the algorithm",
+    "type": "object",
+    "properties": {
+      "nb_request": {
+        "type": "number",
+        "description": "for how many request is your measure ? for example 100 prompts"
+      },
+      "parameters_NLP":{
+        "type": "object",
+        "properties": {
+          "nb_token_input":{
+            "type": "number",
+            "description": "the number of tokens in the input"
+          },
+          "nb_words_input":{
+            "type": "number",
+            "description": "the number of words in the input"
+          },
+          "nb_token_output":{
+            "type": "number",
+            "description": "the number of tokens in the response"
+          },
+          "nb_words_output":{
+            "type": "number",
+            "description": "the number of words in the response"
+          }, 
+          "context_windows_size":{
+            "type":"number", 
+            "description": "the number of tokens your system keeps in memory to generate the next answer"
+          }, 
+          "cache":{
+            "type": "boolean", 
+            "description": "Does your chatbot have a cache ?"
+          }
+        }
+      }
+    },
+    "required": [
+      "nb_request"
+    ]
+  }

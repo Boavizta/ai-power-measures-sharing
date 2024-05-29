@@ -32,7 +32,7 @@
           "reportStatus": {
             "type": "string",
             "enum": [ "draft", "final", "corrective", "$other" ],
-            "description": ""
+            "description": "the status of this report"
           },
           "publisher": {
             "type": "object",
@@ -68,33 +68,7 @@
         "required": [
           "formatVersion",
           "reportId",
-          "reportStatus",
-          "publisher"
-        ]
-      },
-      "datasets": {
-        "type": "array",
-        "description": "the list of datasets processed by the computing task",
-        "items": {
-          "type":"object",
-          "minItems": 1,
-          "additionalProperties": {
-            "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/dataset_schema.json"
-          }
-        }
-      },
-      "measures": {
-        "type": "array",
-        "description": "the software and/or hardware measures of the computing task",
-        "items": {
-          "type":"object",
-          "minItems": 1,
-          "additionalProperties": {
-            "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/measure_schema.json"
-          }
-        },
-        "required": [
-          "measures"  
+          "reportStatus"
         ]
       },
       "task": {
@@ -103,19 +77,34 @@
         "properties": {
           "taskType": {
             "type": "string",
-            "description": "type of the computing task of machine learning, example : preprocessing, supervised, unsupervised, unsupervised, postprocessing, semisupervised,postprocessing ..."
+            "description": "type of the computing task of machine learning, example : datacreation, preprocessing, supervised, unsupervised, unsupervised, postprocessing, semisupervised, postprocessing ..."
+          },
+          "taskFamily": {
+            "type": "string",
+            "description": "the family of task performed, example : classification, regression, chatbot, summarization, keyword extraction, image recognition..."
           },
           "taskStage": {
             "type": "string",
-            "description": "stage of the task if any, example: training, finetuning, reinforcement, inference..."
+            "description": "stage of the task, example: training, finetuning, reinforcement, inference..."
           },
           "algorithms": {
             "type": "array",
-            "description": "the main algorithmic approaches used by the computing task",
+            "description": "the main algorithmic approache(s) used by the computing task",
             "items": {
               "type":"object",
               "additionalProperties": {
                 "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/algorithm_schema.json"
+              }
+            }
+          },
+          "dataset": {
+            "type": "array",
+            "description": "the list of dataset processed by the computing task",
+            "items": {
+              "type":"object",
+              "minItems": 1,
+              "additionalProperties": {
+                "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/dataset_schema.json"
               }
             }
           },
@@ -133,7 +122,24 @@
         },
         "required": [
           "taskType",
-          "algorithms"
+          "taskFamily",
+          "taskStage",
+          "algorithms",
+          "dataset"
+        ]
+      },
+      "measures": {
+        "type": "array",
+        "description": "the software and/or hardware measures of the computing task",
+        "items": {
+          "type":"object",
+          "minItems": 1,
+          "additionalProperties": {
+            "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/measure_schema.json"
+          }
+        },
+        "required": [
+          "measures"  
         ]
       },
       "system": {
@@ -177,7 +183,12 @@
       "infrastructure": {
         "type": "object",
         "description": "the infrastructure on which is performed the computing task",
-        "parts": {
+        "infraType":{
+          "type":"string",
+          "enum":["publicCloud","privateCloud", "onPremise", "$other"],
+          "description": "the type of infrastructure used for the task"
+        },
+        "components": {
           "type": "array",
           "items": {
             "type":"object",
@@ -188,6 +199,7 @@
           }
         },
         "required": [
+          "infraType",
           "parts"
         ]
       },
@@ -226,6 +238,11 @@
           "country"
         ]
       },
+      "quality": {
+        "type": "string",
+        "enum":[ "high", "medium", "low" ],
+        "description": "the quality of the information you provided, 3 possibilities : high (percentage error +/-10%), medium (percentage error +/-25%), low (percentage error +/-50%)"
+      },
       "$hash": {
         "type": "object",
         "properties": {
@@ -252,9 +269,9 @@
       }
     },
     "required": [
-      "datasets",
-      "measures",
       "task",
-      "infrastructure"
+      "measures",
+      "infrastructure",
+      "region"
     ]
   }

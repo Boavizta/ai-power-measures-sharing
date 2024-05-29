@@ -5,14 +5,13 @@
     "description": "the energy measure obtained from software and/or hardware tools, for a computing task",
     "type": "object",
     "properties": {
-      "$$key": {
+      "measurement_method": {
         "type": "string",
-        "enum": [ "CodeCarbon", "CarbonAI", "pyJoules", "pynvml", "pyRAPL", "PowerGadget", "redutils", "JEPO", "JoularJX", "Win32_PowerMeter", "flops-compute", "flops-counter", "flopco-pytorch", "ptflops", "flops.r", "$Wattmeter", "$other" ],
         "description": "the method used to perform the energy or FLOPS measure, example: CodeCarbon, CarbonAI, flops-compute, Wattmeter..."
       },
       "manufacturer": {
         "type": "string",
-        "description": "the builder of the measuring tool, noticeably used for a device (if so, $$key value should be set to $Wattmeter)"
+        "description": "the builder of the measuring tool,if the measrement method is Wattmeter"
       },
       "version": {
         "type": "string",
@@ -47,15 +46,10 @@
       "powerConsumption": {
         "type": "number",
         "description": "the power consumption measure of the computing task"
-      },
-      "quality": {
-        "type": "string",
-        "enum":[ "high", "medium", "low" ],
-        "description": "the quality of the information you provided, 3 possibilities : high (percentage error +/-1%), medium (percentage error +/-10%), low (percentage error +/-20%)"
       }
     },
     "required": [
-      "$$key",
+      "measurement_method",
       "unit",
       "powerConsumption"
     ]
