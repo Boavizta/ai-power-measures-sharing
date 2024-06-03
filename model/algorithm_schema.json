@@ -22,7 +22,30 @@
         "description": "the full class path of the algorithm within the framework, with elements separated by dots"
       },
       "hyperparameters": {
-        "type": "object"
+        "type": "object",
+        "properties": {
+          "tuning_method":{
+            "type":"string", 
+            "description": "the method of hyper-parameters tuning used (if any), example : GridSearch, RandomizedSearch..."
+          },
+          "values":{
+            "type":"array",
+            "items": {
+              "hyperparameter_name":{
+                "type":"string",
+                "description": "the name of the hyperparameter, example : C, kernel, gamma, class_weight..."
+              },
+              "hyperparameter_value":{
+                    "type":"string",
+                    "description": "the value of the hyperparameter, example : rbf, 1e-4, 10, linear..."
+              }
+            } 
+          }
+        }
+      },
+      "quantization":{
+        "type":"number", 
+        "description": "the data weights (in bits) obtained thanks to the quantization, example : 2, 8, 16..."
       },
       "parameters_LLM":{
         "type": "object",
