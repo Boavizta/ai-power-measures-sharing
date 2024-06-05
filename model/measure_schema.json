@@ -11,7 +11,7 @@
       },
       "manufacturer": {
         "type": "string",
-        "description": "the builder of the measuring tool,if the measrement method is Wattmeter"
+        "description": "the builder of the measuring tool, if the measurement method is Wattmeter"
       },
       "version": {
         "type": "string",
@@ -28,7 +28,7 @@
       "server_side_inference":{
         "type": "string",
         "enum": [ "AI_server", "testingAI_server", "both" ],
-        "description": "if you practice inference throw an API, do you estimate the consumption only of the AI server (because the AI is deployed on your own server and you have access to the measure or because you estimated it with a tool like EcoLogits), only of the testingAI_server side or from both side ?"
+        "description": "if you practice inference through an API, do you estimate the consumption only of the AI server (because the AI is deployed on your own server and you have access to the measure or because you estimated it with a tool like EcoLogits), only of the testingAI_server side or from both side ?"
       },
       "unit": {
         "type": "string",
