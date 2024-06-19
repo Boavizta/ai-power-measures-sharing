@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "$id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/dataset_schema.json",
     "title": "dataset",
-    "description": "nature, shape, number of items, ownership and other properties (except data itself) of a dataset involved in a computing task",
+    "description": "Describe the nature, shape, number of items and other properties of the dataset involved in your task, if you are performing inference, please indicate the average size of the data sent for a single inference and fill in the number of inferences in the propertiy: inferenceProperties",
     "type": "object",
     "properties": {
       "data_type":{
@@ -23,6 +23,17 @@
         "type": "string",
         "enum": [ "kilobyte", "megabyte", "gigabyte", "terabyte", "petabyte", "exabyte", "zettabyte", "yottabyte" ],
         "description": "the unit of the size of the dataset"
+      },
+      "items": {
+        "type": "integer",
+        "description": "the number of items in the dataset"
+      },
+      "shape": {
+        "type": "array",
+        "description": "the shape of each dataset item (for instance, an array of size 3, for greyscale images)",
+        "items": {
+            "type": "integer"
+        }
       },
       "inferenceProperties": {
         "type": "array",
@@ -46,17 +57,6 @@
       "owner": {
         "type": "string",
         "description": "the owner of the dataset if available"
-      },
-      "items": {
-        "type": "integer",
-        "description": "the number of items in the dataset"
-      },
-      "shape": {
-        "type": "array",
-        "description": "the shape of each dataset item (for instance, an array of size 3, for greyscale images)",
-        "items": {
-            "type": "integer"
-        }
       }
     },
     "required": [
