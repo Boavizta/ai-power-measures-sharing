@@ -1,7 +1,7 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "$id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/report_schema.json",
-    "title": "report",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/report_schema.json",
+  "title": "report",
     "description": "the main object containing all the context pertaining to a computing task",
     "type": "object",
     "properties": {
@@ -93,7 +93,7 @@
             "items": {
               "type":"object",
               "additionalProperties": {
-                "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/algorithm_schema.json"
+                "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/algorithm_schema.json"
               }
             }
           },
@@ -104,7 +104,7 @@
               "type":"object",
               "minItems": 1,
               "additionalProperties": {
-                "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/dataset_schema.json"
+                "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/dataset_schema.json"
               }
             }
           },
@@ -135,7 +135,7 @@
           "type":"object",
           "minItems": 1,
           "additionalProperties": {
-            "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/measure_schema.json"
+            "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/measure_schema.json"
           }
         },
         "required": [
@@ -183,6 +183,7 @@
       "infrastructure": {
         "type": "object",
         "description": "the infrastructure on which is performed the computing task",
+        "properties": {
         "infraType":{
           "type":"string",
           "enum":["public_cloud","private_cloud", "on_premise", "$other"],
@@ -199,12 +200,13 @@
         "components": {
           "type": "array",
           "items": {
-            "type":"object",
+            "type": "object",
             "minItems": 1,
             "additionalProperties": {
-              "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/main/model/hardware_schema.json"
+              "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/hardware_schema.json"
             }
           }
+        }
         },
         "required": [
           "infraType",

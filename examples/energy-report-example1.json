@@ -56,7 +56,7 @@
 		"version": "3.9.0"
 	},
 	"infrastructure":{
-		"infraType":"public_cloud",
+		"infraType": "public_cloud",
 		"cloudProvider": "aws",
 		"cloudInstance": "a1.large",
 		"components": [
