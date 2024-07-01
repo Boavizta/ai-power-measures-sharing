@@ -77,7 +77,7 @@
         "properties": {
           "taskType": {
             "type": "string",
-            "description": "type of the computing task of machine learning, example : datacreation, preprocessing, supervised, unsupervised, postprocessing, semisupervised, postprocessing ..."
+            "description": "type of the computing task of machine learning, example : datacreation, preprocessing, supervised_learning, unsupervised_learning, semi_supervised_learning ..."
           },
           "taskFamily": {
             "type": "string",
@@ -85,7 +85,7 @@
           },
           "taskStage": {
             "type": "string",
-            "description": "stage of the task, example: training, finetuning, reinforcement, inference, RAG..."
+            "description": "stage of the task, example: training, finetuning, reinforcement, inference, rag..."
           },
           "algorithms": {
             "type": "array",
@@ -116,7 +116,7 @@
           },
           "estimatedAccuracy": {
             "type": "string",
-            "enum": [ "VERY POOR", "POOR", "AVERAGE", "GOOD", "VERY GOOD" ],
+            "enum": [ "very_poor", "poor", "average", "good", "very_good" ],
             "description": "if you didn't measure the accuracy of your model in concrete percentages, you can give an assessment of the precision between: VERY POOR, POOR, AVERAGE, GOOD, VERY GOOD"
           }
         },
@@ -154,7 +154,7 @@
             "type": "string",
             "description":"distribution of the operating system"
           },
-          "distroVersion": {
+          "distributionVersion": {
             "type": "string",
             "description":"distribution's version of the operating system"
           }
@@ -169,7 +169,7 @@
         "properties": {
           "language": {
             "type": "string",
-            "description": "name of the programming language used, example : C, Java, Julia, Pyhton..."
+            "description": "name of the programming language used, example : c, java, julia, python..."
           },
           "version": {
             "type": "string",
@@ -185,16 +185,16 @@
         "description": "the infrastructure on which is performed the computing task",
         "infraType":{
           "type":"string",
-          "enum":["publicCloud","privateCloud", "onPremise", "$other"],
+          "enum":["public_cloud","private_cloud", "on_premise", "$other"],
           "description": "the type of infrastructure used for the task"
         },
         "cloudProvider":{
           "type":"string",
-          "description": "If you are on the cloud, the name of your cloud provider, for example : AWS, Azure, Google, OVH..."
+          "description": "If you are on the cloud, the name of your cloud provider, for example : aws, azure, google, ovh..."
         },
         "cloudInstance":{
           "type":"string",
-          "description": "If you are on the cloud, the name of your cloud instance, for example : a1.large, Dasv4-Type2..."
+          "description": "If you are on the cloud, the name of your cloud instance, for example : a1.large, dasv4-type2..."
         },
         "components": {
           "type": "array",
@@ -211,9 +211,9 @@
           "components"
         ]
       },
-      "region": {
+      "environment": {
         "type": "object",
-        "description": "geographic region of the infrastructure",
+        "description": "environment of the infrastructure: region of calculation and energy used",
         "properties": {
           "country": {
             "type": "string"
@@ -235,11 +235,9 @@
             "type": "string",
             "enum": [ "solar", "wind", "nuclear", "hydroelectric", "gas", "coal", "$other" ]
           },
-          "powerSourceCarbonIntensityUnit": {
-            "type": "string"
-          },
           "powerSourceCarbonIntensity": {
-            "type": "number"
+            "type": "number",
+            "description": "Carbon intensity of the electicity you used (in gCO2eq/kWh)"
           }
         },
         "required": [

@@ -35,7 +35,7 @@
           }, 
           "cache":{
             "type": "boolean", 
-            "description": "Does your chatbot have a cache ?"
+            "description": "Does your chatbot have a cache ? If yes then true, else false"
           }
         }
       }

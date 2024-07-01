@@ -5,7 +5,7 @@
     "description": "Describe the nature, shape, number of items and other properties of the dataset involved in your task. If you are performing inferences, please indicate the average size of the data sent for a single inference and fill in the number of inferences in the propertiy: inferenceProperties",
     "type": "object",
     "properties": {
-      "data_type":{
+      "dataType":{
         "type": "string",
         "enum": [ "tabular", "audio", "boolean", "image", "video", "object", "text", "$other" ],
         "description": "the nature of the data, purposedly limited to basic types"
@@ -60,7 +60,7 @@
       }
     },
     "required": [
-      "data_type",
+      "dataType",
       "volume",
       "volumeUnit"
     ]

@@ -5,9 +5,9 @@
     "description": "the type of algorithm used by the computing task",
     "type": "object",
     "properties": {
-      "algorithm_name": {
+      "algorithmName": {
         "type": "string",
-        "description": "the case-sensitive common name of the algorithm, example: RandomForest, SVM, XGBoost..."
+        "description": "the case-sensitive common name of the algorithm, example: random_forest, svm, xgboost..."
       },
       "framework": {
         "type": "string",
@@ -26,16 +26,16 @@
         "properties": {
           "tuning_method":{
             "type":"string", 
-            "description": "the method of hyper-parameters tuning used (if any), example : GridSearch, RandomizedSearch..."
+            "description": "the method of hyper-parameters tuning used (if any), example : grid_search, randomized_search..."
           },
           "values":{
             "type":"array",
             "items": {
-              "hyperparameter_name":{
+              "hyperparameterName":{
                 "type":"string",
-                "description": "the name of the hyperparameter, example : C, kernel, gamma, class_weight..."
+                "description": "the name of the hyperparameter, example : c, kernel, gamma, class_weight..."
               },
-              "hyperparameter_value":{
+              "hyperparameterValue":{
                     "type":"string",
                     "description": "the value of the hyperparameter, example : rbf, 1e-4, 10, linear..."
               }
@@ -49,6 +49,6 @@
       }
     },
     "required": [
-      "algorithm_name"
+      "algorithmName"
     ]
   }

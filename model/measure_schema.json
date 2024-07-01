@@ -5,41 +5,41 @@
     "description": "the energy measure obtained from software and/or hardware tools, for a computing task",
     "type": "object",
     "properties": {
-      "measurement_method": {
+      "measurementMethod": {
         "type": "string",
-        "description": "the method used to perform the energy or FLOPS measure, example: CodeCarbon, CarbonAI, flops-compute, Wattmeter..."
+        "description": "the method used to perform the energy or FLOPS measure, example: codecarbon, carbonai, flops_compute, wattmeter..."
       },
       "manufacturer": {
         "type": "string",
-        "description": "the builder of the measuring tool, if the measurement method is Wattmeter"
+        "description": "the builder of the measuring tool, if the measurement method is wattmeter"
       },
       "version": {
         "type": "string",
         "description": "the version of the measuring tool, if any"
       },
-      "cpu_tracking_mode": {
+      "cpuTrackingMode": {
         "type": "string",
-        "description": "the method used to track the consumption of the CPU, example : constant, RAPL..."
+        "description": "the method used to track the consumption of the CPU, example : constant, rapl..."
       },
-      "gpu_tracking_mode": {
+      "gpuTrackingMode": {
         "type": "string",
         "description": "the method used to track the consumption of the GPU, example : constant, nvml..."
       },
-      "average_utilization_cpu": {
+      "averageUtilizationCpu": {
         "type":"number",
         "minimum": 0,
         "maximum": 1,
         "description": "the average percentage of use of the cpu during the task, for example: 0.5 if your CPU load was 50% on average."
       },
-      "average_utilization_gpu": {
+      "averageUtilizationGpu": {
         "type":"number",
         "minimum": 0,
         "maximum": 1,
         "description": "the average percentage of use of the gpu during the task, for example: 0.8 if your GPU load was 80% on average."
       },
-      "server_side_inference":{
+      "serverSideInference":{
         "type": "string",
-        "enum": [ "AI_server", "inference_server", "both" ],
+        "enum": [ "ai_server", "inference_server", "both" ],
         "description": "if you practice inference through an API, do you estimate the consumption of the AI server alone ? (because the AI is deployed on your own server and you have access to the measurement, or because you have estimated it with a tool like EcoLogits). Or do you estimate the consumption from the inference_server side or from both side at the same time ?"
       },
       "unit": {
@@ -47,11 +47,11 @@
         "enum": [ "mWh","Wh", "kWh", "MWh", "GWh", "kJoule", "MJoule", "GJoule", "TJoule", "PJoule", "BTU", "kiloFLOPS", "megaFLOPS", "gigaFLOPS", "teraFLOPS", "petaFLOPS", "exaFLOPS", "zettaFLOPS", "yottaFLOPS" ],
         "description": "the unit of the power consumption measure of the computing task"
       },
-      "powerCalibrationMeasure": {
+      "powerCalibrationMeasurement": {
         "type": "number",
         "description": "the power consumed during your calibration measure if any (to isolate the inital consumption of your machine)"
       },
-      "durationCalibrationMeasure": {
+      "durationCalibrationMeasurement": {
         "type": "number",
         "description": "the duration of your calibration if any (in seconds)"
       },
@@ -59,17 +59,17 @@
         "type": "number",
         "description": "the power consumption measure of the computing task"
       },
-      "measureDuration": {
+      "measurementDuration": {
         "type": "number",
-        "description": "the measure's duration (in seconds)"
+        "description": "the measurement's duration (in seconds)"
       },
-      "measureDateTime": {
+      "measurementDateTime": {
           "type": "string",
           "description": "the date on which the measurement began, in format YYYY-MM-DD HH:MM:SS"
       }
     },
     "required": [
-      "measurement_method",
+      "measurementMethod",
       "unit",
       "powerConsumption"
     ]
