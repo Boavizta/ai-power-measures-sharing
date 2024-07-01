@@ -20,17 +20,19 @@ CodeCarbon
 Carbon AI
 PyJoules
 PowerGadget
+EcoLogits
 ...
 
 ### Hardware-based 
 Direct physical measure with a Watt-meter.
 
-In the report schema, you can provide as many measure_schemas as you wish. Please note that the aim is not to mix measurements from a whole range of tasks in one report, but to allow you to compare measurements of the same task measures that can be drawn from various tools (several softwate and/or hardware tools at the same time).
+In the report schema, you can provide as many measure_schemas as you wish. Please note that the aim is not to mix measurements from a whole series of tasks in a single report, but to allow you to compare measurements for the same task that may be taken from different tools (several software and/or hardware tools at the same time).
 
 ## 3. What to describe ? 
 
-The datamodel is complex and allows to describe a lot of different configurations : for example, you can provide provide the description of as many dataset or hardware components that you want. However, it is important to bear in mind that the more precise the report, the more usefull the information will be. For example, if you simply say that you performed 10000 inferences on different images of various sizes, using a shape detection algorithm, that you were in the cloud and that you consumed x kWh, this will not allow you to deduce much information about the cost of an inference on a specific piece of data on a sepecific hardware. It is better to produce reports on a finer scale: I've run this recognition algorithm, trained with these hyperparameters, I've measured the power consumption of the cpu and gpu of this model, I've made an inference about an image of such and such a size... 
-Read the schema carefully, some attributes are enums whose possible values are detailed, others are free fields. When this is the case, please describe things in a unique and unambiguous way to facilitate processing. We ask you to use the [snake_case](https://www.logilax.com/snake-case/) notation (e.g don't write "Random forest" or "RandomForest" but "random_forest" instead).
+The datamodel is complex and allows to describe a lot of different configurations : for example, you can provide provide the description of as many dataset or hardware components that you want. However, it is important to bear in mind that the more precise the report, the more usefull the information will be. For example, if you simply say that you performed 10000 inferences on different images of various sizes, using a supervised algorithm, that you were on the cloud and that you consumed x kWh, this will not allow you to deduce much information about the cost of an inference on a specific piece of data on a specific hardware. It is better to produce reports on a finer scale: I've run this recognition algorithm, I've measured the power consumption of the cpu and gpu of this model, I have made an inference about an image of this certain size...    
+
+Read the schema carefully: some attributes are enumerations with detailed possible values, others are free fields. When this is the case, please describe things in a unique and unambiguous way to facilitate processing. We ask you to use the [snake_case](https://www.logilax.com/snake-case/) notation (e.g don't write "Random forest" or "RandomForest" but "random_forest" instead).
 
 ## 4. Quick preview of the fields
 

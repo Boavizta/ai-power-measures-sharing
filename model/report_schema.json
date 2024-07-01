@@ -85,7 +85,7 @@
           },
           "taskStage": {
             "type": "string",
-            "description": "stage of the task, example: training, finetuning, reinforcement, inference..."
+            "description": "stage of the task, example: training, finetuning, reinforcement, inference, RAG..."
           },
           "algorithms": {
             "type": "array",
@@ -188,6 +188,14 @@
           "enum":["publicCloud","privateCloud", "onPremise", "$other"],
           "description": "the type of infrastructure used for the task"
         },
+        "cloudProvider":{
+          "type":"string",
+          "description": "If you are on the cloud, the name of your cloud provider, for example : AWS, Azure, Google, OVH..."
+        },
+        "cloudInstance":{
+          "type":"string",
+          "description": "If you are on the cloud, the name of your cloud instance, for example : a1.large, Dasv4-Type2..."
+        },
         "components": {
           "type": "array",
           "items": {
@@ -200,7 +208,7 @@
         },
         "required": [
           "infraType",
-          "parts"
+          "components"
         ]
       },
       "region": {

@@ -46,15 +46,6 @@
       "quantization":{
         "type":"number", 
         "description": "the data weights (in bits) obtained thanks to the quantization, example : 2, 8, 16..."
-      },
-      "parameters_LLM":{
-        "type": "object",
-        "properties": {
-          "quantizification_method":{
-            "type": "string",
-            "description": "the full class path of the algorithm within the framework, with elements separated by dots"
-          }
-        }
       }
     },
     "required": [
