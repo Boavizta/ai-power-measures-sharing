@@ -1,9 +1,9 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/hardware_schema.json",
+  "items": {
+    "type": "object",
+    "minItems": 1,
     "title": "hardware",
     "description": "a hardware subsystem part of the infrastructure running the computing task",
-    "type": "object",
     "properties": {
       "componentName": {
         "type": "string",
@@ -40,4 +40,5 @@
       "componentName",
       "nbComponent"
     ]
+  }
 }

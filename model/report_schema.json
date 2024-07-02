@@ -93,16 +93,16 @@
             "items": {
               "type":"object",
               "additionalProperties": {
-                "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/algorithm_schema.json"
+                "$ref": "/model/algorithm_schema.json"
               }
             }
           },
           "dataset": {
             "type": "array",
             "description": "the list of dataset processed by the computing task",
+            "minItems": 1,
             "items": {
               "type":"object",
-              "minItems": 1,
               "additionalProperties": {
                 "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/dataset_schema.json"
               }
@@ -131,9 +131,9 @@
       "measures": {
         "type": "array",
         "description": "the software and/or hardware measures of the computing task",
+        "minItems": 1,
         "items": {
           "type":"object",
-          "minItems": 1,
           "additionalProperties": {
             "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/measure_schema.json"
           }
@@ -199,9 +199,9 @@
         },
         "components": {
           "type": "array",
+          "minItems": 1,
           "items": {
             "type": "object",
-            "minItems": 1,
             "additionalProperties": {
               "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/hardware_schema.json"
             }
@@ -280,6 +280,6 @@
       "task",
       "measures",
       "infrastructure",
-      "region"
+      "environment"
     ]
   }

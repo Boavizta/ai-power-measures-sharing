@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/measure_schema.json",
+    "id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/measure_schema.json",
     "title": "measure",
     "description": "the energy measure obtained from software and/or hardware tools, for a computing task",
     "type": "object",

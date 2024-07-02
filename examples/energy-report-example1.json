@@ -22,20 +22,23 @@
 			{
 				"algorithmName": "random_forest"
 			}
-		]
+		],
+		"datasets": [
+			{
+				"dataType": "tabular",
+				"fileType": "csv",
+				"volume": 80,
+				"volumeUnit": "megabyte",
+				"items": 150000,
+				"shape": [
+					20,
+					150000
+				],
+				"source": "private"
+			}
+		],
+		"measuredAccuracy": 0.71
 	},
-	"datasets": [
-		{
-			"dataType": "tabular",
-			"fileType": "csv",
-			"volume": 80,
-			"volumeUnit": "megabyte",
-			"items": 150000,
-			"shape": [20,150000],
-			"source": "private"
-		}
-	],
-	"measuredAccuracy":0.71,
 	"measures": [
 		{
 			"measurementMethod": "codecarbon",

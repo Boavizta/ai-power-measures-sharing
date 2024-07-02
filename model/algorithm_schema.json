@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/algorithm_schema.json",
+    "id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/algorithm_schema.json",
     "title": "algorithm",
     "description": "the type of algorithm used by the computing task",
     "type": "object",
@@ -31,13 +31,16 @@
           "values":{
             "type":"array",
             "items": {
-              "hyperparameterName":{
-                "type":"string",
-                "description": "the name of the hyperparameter, example : c, kernel, gamma, class_weight..."
-              },
-              "hyperparameterValue":{
-                    "type":"string",
-                    "description": "the value of the hyperparameter, example : rbf, 1e-4, 10, linear..."
+              "type": "object",
+              "properties": {
+                "hyperparameterName": {
+                  "type": "string",
+                  "description": "the name of the hyperparameter, example : c, kernel, gamma, class_weight..."
+                },
+                "hyperparameterValue": {
+                  "type": "string",
+                  "description": "the value of the hyperparameter, example : rbf, 1e-4, 10, linear..."
+                }
               }
             } 
           }
