@@ -11,11 +11,11 @@
       },
       "nbComponent": {
         "type": "integer",
-        "description": "the number of this component in your infrastructure"
+        "description": "the number of items of this component in your infrastructure"
       },
       "memorySize": {
         "type":"integer",
-        "description": "the size of the memory of the component in Go"
+        "description": "the size of the memory of the component in Gbytes"
       },
       "manufacturer": {
         "type": "string",
@@ -33,7 +33,7 @@
         "type": "number",
         "minimum": 0,
         "maximum": 1,
-        "description": "the percentage of the physical equipment which is assigned to you"
+        "description": "the percentage of the physical equipment used by the task"
       }
     },
     "required": [

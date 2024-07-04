@@ -19,23 +19,23 @@
       },
       "cpuTrackingMode": {
         "type": "string",
-        "description": "the method used to track the consumption of the CPU, example : constant, rapl..."
+        "description": "the method used to track the consumption of the CPU, example: constant, rapl..."
       },
       "gpuTrackingMode": {
         "type": "string",
-        "description": "the method used to track the consumption of the GPU, example : constant, nvml..."
+        "description": "the method used to track the consumption of the GPU, example: constant, nvml..."
       },
       "averageUtilizationCpu": {
         "type":"number",
         "minimum": 0,
         "maximum": 1,
-        "description": "the average percentage of use of the cpu during the task, for example: 0.5 if your CPU load was 50% on average."
+        "description": "the average percentage of use of the CPU during the task, for example: 0.5 if your CPU load was 50% on average"
       },
       "averageUtilizationGpu": {
         "type":"number",
         "minimum": 0,
         "maximum": 1,
-        "description": "the average percentage of use of the gpu during the task, for example: 0.8 if your GPU load was 80% on average."
+        "description": "the average percentage of use of the GPU during the task, for example: 0.8 if your GPU load was 80% on average"
       },
       "serverSideInference":{
         "type": "string",
@@ -49,11 +49,11 @@
       },
       "powerCalibrationMeasurement": {
         "type": "number",
-        "description": "the power consumed during your calibration measure if any (to isolate the inital consumption of your machine)"
+        "description": "the power consumed during the calibration measure if any (to isolate the initial consumption of the hardware)"
       },
       "durationCalibrationMeasurement": {
         "type": "number",
-        "description": "the duration of your calibration if any (in seconds)"
+        "description": "the duration of the calibration if any (in seconds)"
       },
       "powerConsumption": {
         "type": "number",
@@ -61,11 +61,11 @@
       },
       "measurementDuration": {
         "type": "number",
-        "description": "the measurement's duration (in seconds)"
+        "description": "the duration of the measurement (in seconds)"
       },
       "measurementDateTime": {
           "type": "string",
-          "description": "the date on which the measurement began, in format YYYY-MM-DD HH:MM:SS"
+          "description": "the date when the measurement began, in format YYYY-MM-DD HH:MM:SS"
       }
     },
     "required": [

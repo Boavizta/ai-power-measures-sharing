@@ -37,7 +37,7 @@
       },
       "inferenceProperties": {
         "type": "array",
-            "description": "if you are describing an inference, please describe the type of query(s) sent to the model",
+            "description": "if you are describing an inference, please describe the type of queries sent to the model",
             "items": {
               "type":"object",
               "additionalProperties": {

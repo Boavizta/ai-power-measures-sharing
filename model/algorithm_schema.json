@@ -26,7 +26,7 @@
         "properties": {
           "tuning_method":{
             "type":"string", 
-            "description": "the method of hyper-parameters tuning used (if any), example : grid_search, randomized_search..."
+            "description": "the method of hyper-parameters tuning used (if any), example: grid_search, randomized_search..."
           },
           "values":{
             "type":"array",
@@ -35,11 +35,11 @@
               "properties": {
                 "hyperparameterName": {
                   "type": "string",
-                  "description": "the name of the hyperparameter, example : c, kernel, gamma, class_weight..."
+                  "description": "the name of the hyperparameter, example: c, kernel, gamma, class_weight..."
                 },
                 "hyperparameterValue": {
                   "type": "string",
-                  "description": "the value of the hyperparameter, example : rbf, 1e-4, 10, linear..."
+                  "description": "the value of the hyperparameter, example: rbf, 1e-4, 10, linear..."
                 }
               }
             } 
@@ -48,7 +48,7 @@
       },
       "quantization":{
         "type":"number", 
-        "description": "the data weights (in bits) obtained thanks to the quantization, example : 2, 8, 16..."
+        "description": "the data weights (in bits) obtained thanks to the quantization, example: 2, 8, 16..."
       }
     },
     "required": [

@@ -53,7 +53,7 @@
               "confidentialityLevel": {
                 "type": "string",
                 "enum": [ "public", "internal", "confidential", "secret" ],
-                "description": " the confidentiality of the report"
+                "description": " the confidentiality level of the report"
               },
               "publicKey": {
                 "type": "string",
@@ -77,11 +77,11 @@
         "properties": {
           "taskType": {
             "type": "string",
-            "description": "type of the computing task of machine learning, example : datacreation, preprocessing, supervised_learning, unsupervised_learning, semi_supervised_learning ..."
+            "description": "type of the computing task of machine learning, example: datacreation, preprocessing, supervised_learning, unsupervised_learning, semi_supervised_learning ..."
           },
           "taskFamily": {
             "type": "string",
-            "description": "the family of task performed, example : classification, regression, chatbot, summarization, keyword extraction, image recognition..."
+            "description": "the family of task performed, example: classification, regression, chatbot, summarization, keyword extraction, image recognition..."
           },
           "taskStage": {
             "type": "string",
@@ -89,7 +89,7 @@
           },
           "algorithms": {
             "type": "array",
-            "description": "the main algorithmic approache(s) used by the computing task",
+            "description": "the main algorithmic approach(es) used by the computing task",
             "minItems": 0,
             "maxItems": 10,
             "items": [
@@ -119,7 +119,7 @@
                     "properties": {
                       "tuning_method": {
                         "type": "string",
-                        "description": "the method of hyper-parameters tuning used (if any), example : grid_search, randomized_search..."
+                        "description": "the method of hyper-parameters tuning used (if any), example: grid_search, randomized_search..."
                       },
                       "values":{
                         "type":"array",
@@ -128,11 +128,11 @@
                           "properties": {
                             "hyperparameterName": {
                               "type": "string",
-                              "description": "the name of the hyperparameter, example : c, kernel, gamma, class_weight..."
+                              "description": "the name of the hyperparameter, example: c, kernel, gamma, class_weight..."
                             },
                             "hyperparameterValue": {
                               "type": "string",
-                              "description": "the value of the hyperparameter, example : rbf, 1e-4, 10, linear..."
+                              "description": "the value of the hyperparameter, example: rbf, 1e-4, 10, linear..."
                             }
                           }
                         }
@@ -141,7 +141,7 @@
                   },
                   "quantization": {
                     "type": "number",
-                    "description": "the data weights (in bits) obtained thanks to the quantization, example : 2, 8, 16..."
+                    "description": "the data weights (in bits) obtained thanks to the quantization, example: 2, 8, 16..."
                   }
                 },
                 "required": [
@@ -199,7 +199,7 @@
                     "properties": {
                       "nbRequest": {
                         "type": "number",
-                        "description": "for how many request is your measure ? for example 100 prompts or 100 images"
+                        "description": "number of requests the measure corresponds to (for example 100 prompts or 100 images)"
                       },
                       "parametersNLP":{
                         "type": "object",
@@ -223,11 +223,11 @@
                           },
                           "contextWindowsSize":{
                             "type":"number",
-                            "description": "the number of tokens your system keeps in memory to generate the next answer"
+                            "description": "the number of tokens the system keeps in memory to generate the next answer"
                           },
                           "cache":{
                             "type": "boolean",
-                            "description": "Does your chatbot have a cache ? If yes then true, else false"
+                            "description": "presence of a cache function (true or false)"
                           }
                         }
                       }
@@ -263,12 +263,12 @@
             "type": "number",
             "minimum": 0,
             "maximum": 1,
-            "description": "the measured accuracy of your model (between 0 and 1)"
+            "description": "the measured accuracy of the model (between 0 and 1)"
           },
           "estimatedAccuracy": {
             "type": "string",
             "enum": [ "very_poor", "poor", "average", "good", "very_good" ],
-            "description": "if you didn't measure the accuracy of your model in concrete percentages, you can give an assessment of the precision between: VERY POOR, POOR, AVERAGE, GOOD, VERY GOOD"
+            "description": "if you didn't measure the accuracy of the model in concrete percentages, you can give an assessment of the precision between: VERY POOR, POOR, AVERAGE, GOOD, VERY GOOD"
           }
         },
         "required": [
@@ -302,23 +302,23 @@
             },
             "cpuTrackingMode": {
               "type": "string",
-              "description": "the method used to track the consumption of the CPU, example : constant, rapl..."
+              "description": "the method used to track the consumption of the CPU, example: constant, rapl..."
             },
             "gpuTrackingMode": {
               "type": "string",
-              "description": "the method used to track the consumption of the GPU, example : constant, nvml..."
+              "description": "the method used to track the consumption of the GPU, example: constant, nvml..."
             },
             "averageUtilizationCpu": {
               "type":"number",
               "minimum": 0,
               "maximum": 1,
-              "description": "the average percentage of use of the cpu during the task, for example: 0.5 if your CPU load was 50% on average."
+              "description": "the average percentage of use of the CPU during the task, for example: 0.5 if your CPU load was 50% on average"
             },
             "averageUtilizationGpu": {
               "type":"number",
               "minimum": 0,
               "maximum": 1,
-              "description": "the average percentage of use of the gpu during the task, for example: 0.8 if your GPU load was 80% on average."
+              "description": "the average percentage of use of the GPU during the task, for example: 0.8 if your GPU load was 80% on average"
             },
             "serverSideInference":{
               "type": "string",
@@ -344,11 +344,11 @@
             },
             "measurementDuration": {
               "type": "number",
-              "description": "the measurement's duration (in seconds)"
+              "description": "the duration of the measurement (in seconds)"
             },
             "measurementDateTime": {
               "type": "string",
-              "description": "the date on which the measurement began, in format YYYY-MM-DD HH:MM:SS"
+              "description": "the date when the measurement began, in format YYYY-MM-DD HH:MM:SS"
             }
           },
           "required": [
@@ -375,7 +375,7 @@
           },
           "distributionVersion": {
             "type": "string",
-            "description":"distribution's version of the operating system"
+            "description":"distribution version of the operating system"
           }
         },
         "required": [
@@ -388,7 +388,7 @@
         "properties": {
           "language": {
             "type": "string",
-            "description": "name of the programming language used, example : c, java, julia, python..."
+            "description": "name of the programming language used, example: c, java, julia, python..."
           },
           "version": {
             "type": "string",
@@ -434,7 +434,7 @@
               },
               "memorySize": {
                 "type":"integer",
-                "description": "the size of the memory of the component in Go"
+                "description": "the size of the memory of the component in Gbytes"
               },
               "manufacturer": {
                 "type": "string",
@@ -503,7 +503,7 @@
       "quality": {
         "type": "string",
         "enum":[ "high", "medium", "low" ],
-        "description": "the quality of the information you provided, 3 possibilities : high (percentage error +/-10%), medium (percentage error +/-25%), low (percentage error +/-50%)"
+        "description": "the quality of the information you provided, 3 possibilities: high (percentage error +/-10%), medium (percentage error +/-25%), low (percentage error +/-50%)"
       },
       "$hash": {
         "type": "object",
