@@ -40,9 +40,7 @@
             "description": "if you are describing an inference, please describe the type of queries sent to the model",
             "items": {
               "type":"object",
-              "additionalProperties": {
-                "$ref": "http://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/inference_schema.json"
-              }
+              "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/inference_schema.json"
             }
       },
       "source": {

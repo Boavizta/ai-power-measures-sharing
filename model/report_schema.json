@@ -92,9 +92,7 @@
             "description": "the main algorithmic approache(s) used by the computing task",
             "items": {
               "type":"object",
-              "additionalProperties": {
-                "$ref": "/model/algorithm_schema.json"
-              }
+              "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/algorithm_schema.json"
             }
           },
           "dataset": {
@@ -103,9 +101,7 @@
             "minItems": 1,
             "items": {
               "type":"object",
-              "additionalProperties": {
-                "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/dataset_schema.json"
-              }
+              "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/dataset_schema.json"
             }
           },
           "measuredAccuracy": {
@@ -134,9 +130,7 @@
         "minItems": 1,
         "items": {
           "type":"object",
-          "additionalProperties": {
-            "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/measure_schema.json"
-          }
+          "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/measure_schema.json"
         },
         "required": [
           "measures"  
@@ -202,9 +196,7 @@
           "minItems": 1,
           "items": {
             "type": "object",
-            "additionalProperties": {
-              "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/hardware_schema.json"
-            }
+            "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/hardware_schema.json"
           }
         }
         },

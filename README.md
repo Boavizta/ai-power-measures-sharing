@@ -92,3 +92,7 @@ The file api/api.py is generated from the JSON schemas within folder /model. Whe
 ```
 python generate_api.py
 ```
+
+## 9. Examples and schema json validator
+
+The validate-schema.py script allows you to validate that the json you have created correctly follows the schema we have defined (in the folder /model). 
