@@ -1,4 +1,0 @@
-
-vpython:S117"XRename this local variable "jsonObj" to match the regular expression ^[_a-z][a-z0-9_]*$.(ö–Œß8£…ò‰‰2
-opython:S15421"KRename function "Usage" to match the regular expression ^[a-z_][a-z0-9_]*$.(Ä³£ñúÿÿÿÿ8£…ò‰‰2
-Ipython:S1481M"%Remove the unused local variable "x".(¤ô‰²üÿÿÿÿ8£…ò‰‰2
