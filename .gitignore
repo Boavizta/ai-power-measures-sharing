@@ -32,6 +32,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+.idea/ 
 
 # Installer logs
 pip-log.txt
@@ -65,3 +66,8 @@ coverage.xml
 
 # Local History for Visual Studio Code
 .history/
+
+### IntelliJ IDEA ###
+*.iws
+*.ipr
+*.iml
