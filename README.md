@@ -77,22 +77,10 @@ The differences among possible architecture scenarii are bound to several consid
 - Privacy: Energy monitoring data publishers must be in the conditions to keep the desired level of privacy concerning the data they publish
 - Trust: The data published, especially on a public database, must own the appropriate level of trust
 
+## 7. Examples and schema json validator
 
-## 7. Tests
+The validate-schema.py script (in the folder 'examples') allows you to validate that the json you have created correctly follows the schema we have defined (in the folder 'model'). 
 
-Run tests as follows:
-```
-python test.py
-```
+## 8. Automation of the report creation 
 
-
-## 8. API generation from JSON schemas
-
-The file api/api.py is generated from the JSON schemas within folder /model. When they come to evolve, please refresh the API with the following command:
-```
-python generate_api.py
-```
-
-## 9. Examples and schema json validator
-
-The validate-schema.py script allows you to validate that the json you have created correctly follows the schema we have defined (in the folder /model). 
+To make the use of this data model easier and more efficient, we want to develop a tool that automatise teh report creation. Initially, it would be a prototype overlaying CodeCarbon (started at the Boavizta hackathon of May). To be continued
