@@ -1,13 +1,13 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$id": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/algorithm_schema.json",
+    "id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/algorithm_schema.json",
     "title": "algorithm",
     "description": "the type of algorithm used by the computing task",
     "type": "object",
     "properties": {
-      "algorithm_name": {
+      "algorithmName": {
         "type": "string",
-        "description": "the case-sensitive common name of the algorithm"
+        "description": "the case-sensitive common name of the algorithm, example: random_forest, svm, xgboost..."
       },
       "framework": {
         "type": "string",
@@ -22,15 +22,36 @@
         "description": "the full class path of the algorithm within the framework, with elements separated by dots"
       },
       "hyperparameters": {
-        "type": "object"
+        "type": "object",
+        "properties": {
+          "tuning_method":{
+            "type":"string", 
+            "description": "the method of hyper-parameters tuning used (if any), example: grid_search, randomized_search..."
+          },
+          "values":{
+            "type":"array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "hyperparameterName": {
+                  "type": "string",
+                  "description": "the name of the hyperparameter, example: c, kernel, gamma, class_weight..."
+                },
+                "hyperparameterValue": {
+                  "type": "string",
+                  "description": "the value of the hyperparameter, example: rbf, 1e-4, 10, linear..."
+                }
+              }
+            } 
+          }
+        }
       },
-      "quality": {
-        "type": "string",
-        "enum":["high","medium","low"],
-        "description": "the quality of the information you provided, 3 possibilities : high (percentage error +/-1%), medium (percentage error +/-10%), low (percentage error +/-20%)"
+      "quantization":{
+        "type":"number", 
+        "description": "the data weights (in bits) obtained thanks to the quantization, example: 2, 8, 16..."
       }
     },
     "required": [
-      "algorithm_name"
+      "algorithmName"
     ]
   }

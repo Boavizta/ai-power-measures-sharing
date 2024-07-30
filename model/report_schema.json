@@ -1,7 +1,7 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "$id": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/report_schema.json",
-    "title": "report",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/report_schema.json",
+  "title": "report",
     "description": "the main object containing all the context pertaining to a computing task",
     "type": "object",
     "properties": {
@@ -30,8 +30,9 @@
             "description": "the publishing date of this report in format YYYY-MM-DD HH:MM:SS"
           },
           "reportStatus": {
-            "enum": [ "draft", "final", "corrective", "$other", null ],
-            "description": ""
+            "type": "string",
+            "enum": [ "draft", "final", "corrective", "$other" ],
+            "description": "the status of this report"
           },
           "publisher": {
             "type": "object",
@@ -67,28 +68,41 @@
         "required": [
           "formatVersion",
           "reportId",
-          "reportStatus",
-          "publisher"
+          "reportStatus"
         ]
       },
-      "datasets": {
-        "type": "array",
-        "description": "the list of datasets processed by the computing task",
-        "items": {
-          "type":"object",
-          "minItems": 1,
-          "additionalProperties": {
-            "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/report_schema.json"
-          }
-        }
-      },
-      "measures": {
-        "type": "array",
-        "description": "the software and/or hardware measures of the computing task",
+      "task": {
+        "type": "object",
+        "description": "the nature of the task being measured",
         "properties": {
-          "runtimeSeconds": {
-            "type": "number",
-            "description": "the runtime of the computing task (in seconds)"
+          "taskType": {
+            "type": "string",
+            "description": "type of the computing task of machine learning, example : datacreation, preprocessing, supervised_learning, unsupervised_learning, semi_supervised_learning ..."
+          },
+          "taskFamily": {
+            "type": "string",
+            "description": "the family of task performed, example : classification, regression, chatbot, summarization, keyword extraction, image recognition..."
+          },
+          "taskStage": {
+            "type": "string",
+            "description": "stage of the task, example: training, finetuning, reinforcement, inference, rag..."
+          },
+          "algorithms": {
+            "type": "array",
+            "description": "the main algorithmic approache(s) used by the computing task",
+            "items": {
+              "type":"object",
+              "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/algorithm_schema.json"
+            }
+          },
+          "dataset": {
+            "type": "array",
+            "description": "the list of dataset processed by the computing task",
+            "minItems": 1,
+            "items": {
+              "type":"object",
+              "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/dataset_schema.json"
+            }
           },
           "measuredAccuracy": {
             "type": "number",
@@ -98,46 +112,28 @@
           },
           "estimatedAccuracy": {
             "type": "string",
+            "enum": [ "very_poor", "poor", "average", "good", "very_good" ],
             "description": "if you didn't measure the accuracy of your model in concrete percentages, you can give an assessment of the precision between: VERY POOR, POOR, AVERAGE, GOOD, VERY GOOD"
-          },
-          "powerConsumptionMeasures": {
-            "type":"object",
-            "minItems": 1,
-            "additionalProperties": {
-              "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/measure_schema.json"
-            }
-          }
-        },
-        "required": [
-          "powerConsumptionMeasures"  
-              ]
-      },
-      "task": {
-        "type": "object",
-        "description": "the nature of the task being measured",
-        "properties": {
-          "taskType": {
-            "type": "string",
-            "description": "type of the computing task of machine learning, example : preprocessing, supervised, unsupervised, unsupervised, postprocessing, semisupervised,postprocessing ..."
-          },
-          "taskStage": {
-            "type": "string",
-            "description": "stage of the task if any, example: training, finetuning, reinforcement, inference..."
-          },
-          "algorithms": {
-            "type": "array",
-            "description": "the main algorithmic approaches used by the computing task",
-            "items": {
-              "type":"object",
-              "additionalProperties": {
-                "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/algorithm_schema.json"
-              }
-            }
           }
         },
         "required": [
           "taskType",
-          "algorithms"
+          "taskFamily",
+          "taskStage",
+          "algorithms",
+          "dataset"
+        ]
+      },
+      "measures": {
+        "type": "array",
+        "description": "the software and/or hardware measures of the computing task",
+        "minItems": 1,
+        "items": {
+          "type":"object",
+          "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/measure_schema.json"
+        },
+        "required": [
+          "measures"  
         ]
       },
       "system": {
@@ -152,7 +148,7 @@
             "type": "string",
             "description":"distribution of the operating system"
           },
-          "distroVersion": {
+          "distributionVersion": {
             "type": "string",
             "description":"distribution's version of the operating system"
           }
@@ -167,7 +163,7 @@
         "properties": {
           "language": {
             "type": "string",
-            "description": "name of the programming language used, example : C, Java, Julia, Pyhton..."
+            "description": "name of the programming language used, example : c, java, julia, python..."
           },
           "version": {
             "type": "string",
@@ -181,23 +177,37 @@
       "infrastructure": {
         "type": "object",
         "description": "the infrastructure on which is performed the computing task",
-        "parts": {
+        "properties": {
+        "infraType":{
+          "type":"string",
+          "enum":["public_cloud","private_cloud", "on_premise", "$other"],
+          "description": "the type of infrastructure used for the task"
+        },
+        "cloudProvider":{
+          "type":"string",
+          "description": "If you are on the cloud, the name of your cloud provider, for example : aws, azure, google, ovh..."
+        },
+        "cloudInstance":{
+          "type":"string",
+          "description": "If you are on the cloud, the name of your cloud instance, for example : a1.large, dasv4-type2..."
+        },
+        "components": {
           "type": "array",
+          "minItems": 1,
           "items": {
-            "type":"object",
-            "minItems": 1,
-            "additionalProperties": {
-              "$ref": "https://github.com/Orange-OpenSource/ai-power-measures-sharing/model/hardware_schema.json"
-            }
+            "type": "object",
+            "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/hardware_schema.json"
           }
+        }
         },
         "required": [
-          "parts"
+          "infraType",
+          "components"
         ]
       },
-      "region": {
+      "environment": {
         "type": "object",
-        "description": "geographic region of the infrastructure",
+        "description": "environment of the infrastructure: region of calculation and energy used",
         "properties": {
           "country": {
             "type": "string"
@@ -219,16 +229,19 @@
             "type": "string",
             "enum": [ "solar", "wind", "nuclear", "hydroelectric", "gas", "coal", "$other" ]
           },
-          "powerSourceCarbonIntensityUnit": {
-            "type": "string"
-          },
           "powerSourceCarbonIntensity": {
-            "type": "number"
+            "type": "number",
+            "description": "Carbon intensity of the electicity you used (in gCO2eq/kWh)"
           }
         },
         "required": [
           "country"
         ]
+      },
+      "quality": {
+        "type": "string",
+        "enum":[ "high", "medium", "low" ],
+        "description": "the quality of the information you provided, 3 possibilities : high (percentage error +/-10%), medium (percentage error +/-25%), low (percentage error +/-50%)"
       },
       "$hash": {
         "type": "object",
@@ -256,9 +269,9 @@
       }
     },
     "required": [
-      "datasets",
-      "measures",
       "task",
-      "infrastructure"
+      "measures",
+      "infrastructure",
+      "environment"
     ]
   }
