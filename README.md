@@ -161,13 +161,13 @@ These could typically inspire the ground for a format of reporting.
 - https://www.iso.org/standard/74438.html
 - https://standards.ieee.org/ieee/3123/10744/
 
-## 7. Examples and schema json validator
+## 7. Schema json validator
 
-The validate-schema.py script (in the folder 'examples') allows you to validate that the json you have created correctly follows the schema we have defined (in the folder 'model'). 
+The validate-schema.py script (in the folder 'tools>schema_validator') allows you to validate that the json you have created correctly follows the schema we have defined (in the folder 'model'). 
 
 ## 8. Automation of the report creation 
 
-To make the use of this data model easier and more efficient, we want to develop a tool that automates the report creation. Initially, it would be a prototype overlaying CodeCarbon (started at the Boavizta hackathon of May). To be continued
+To make the use of this data model easier and more efficient, we want to develop a tool that automates the report creation. Initially, it would be a prototype overlaying CodeCarbon (started at the Boavizta hackathon of May in the folder 'tools>automated_report_creation'). To be continued
 
 ## 9. Open source dataset
 

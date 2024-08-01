@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/report_schema.json",
+  "id": "https://raw.githubusercontent.com/Boavizta/ai-power-measures-sharing/main/model/report_schema.json",
   "title": "report",
-    "description": "the main object containing all the context pertaining to a computing task",
+    "description": "the main object containing all the context pretaining to a computing task",
     "type": "object",
     "properties": {
       "header": {
@@ -92,7 +92,7 @@
             "description": "the main algorithmic approache(s) used by the computing task",
             "items": {
               "type":"object",
-              "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/algorithm_schema.json"
+              "$ref": "https://raw.githubusercontent.com/Boavizta/ai-power-measures-sharing/main/model/algorithm_schema.json"
             }
           },
           "dataset": {
@@ -101,7 +101,7 @@
             "minItems": 1,
             "items": {
               "type":"object",
-              "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/dataset_schema.json"
+              "$ref": "https://raw.githubusercontent.com/Boavizta/ai-power-measures-sharing/main/model/dataset_schema.json"
             }
           },
           "measuredAccuracy": {
@@ -130,7 +130,7 @@
         "minItems": 1,
         "items": {
           "type":"object",
-          "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/measure_schema.json"
+          "$ref": "https://raw.githubusercontent.com/Boavizta/ai-power-measures-sharing/main/model/measure_schema.json"
         },
         "required": [
           "measures"  
@@ -196,7 +196,7 @@
           "minItems": 1,
           "items": {
             "type": "object",
-            "$ref": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/hardware_schema.json"
+            "$ref": "https://raw.githubusercontent.com/Boavizta/ai-power-measures-sharing/main/model/hardware_schema.json"
           }
         }
         },
