@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "https://github.com/Boavizta/ai-power-measures-sharing/blob/feature/hackathon/model/algorithm_schema.json",
+    "id": "https://raw.githubusercontent.com/Boavizta/ai-power-measures-sharing/main/model/algorithm_schema.json",
     "title": "algorithm",
     "description": "the type of algorithm used by the computing task",
     "type": "object",
