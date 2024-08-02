@@ -27,7 +27,7 @@
       },
       "series": {
         "type": "string",
-        "description": "the series of this component, example: rtx_4080"
+        "description": "the series of this component, example: rtx4080"
       },
       "share": {
         "type": "number",
