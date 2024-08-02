@@ -77,7 +77,7 @@
         "properties": {
           "taskType": {
             "type": "string",
-            "description": "type of the computing task of machine learning, example : datacreation, preprocessing, supervised_learning, unsupervised_learning, semi_supervised_learning ..."
+            "description": "type of the computing task of machine learning, example : datacreation, preprocessing, supervisedLearning, unsupervisedLearning, semiSupervisedLearning ..."
           },
           "taskFamily": {
             "type": "string",
@@ -112,7 +112,7 @@
           },
           "estimatedAccuracy": {
             "type": "string",
-            "enum": [ "very_poor", "poor", "average", "good", "very_good" ],
+            "enum": [ "veryPoor", "poor", "average", "good", "veryGood" ],
             "description": "if you didn't measure the accuracy of your model in concrete percentages, you can give an assessment of the precision between: VERY POOR, POOR, AVERAGE, GOOD, VERY GOOD"
           }
         },
@@ -180,7 +180,7 @@
         "properties": {
         "infraType":{
           "type":"string",
-          "enum":["public_cloud","private_cloud", "on_premise", "$other"],
+          "enum":["publicCloud","privateCloud", "onPremise", "$other"],
           "description": "the type of infrastructure used for the task"
         },
         "cloudProvider":{
